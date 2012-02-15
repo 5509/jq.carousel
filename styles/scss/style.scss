@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+@import url(normalize.css);
+@import url(fonts.css);
+
+.cont {
+	margin: 0 auto;
+	width: 640px;
+}
+
+.carousel {
+	
+
+	.carousel_inner {
+		
+		.carousel_box {
+			border: solid #fff 5px;
+			width: 140px;
+			height: 140px;
+			color: #fff;
+			background: #252525;
+			line-height: 150px;
+			text-align: center;
+			font-size: 123%;
+		}
+	}
+
+	.btns {
+	
+	}
+}
+
+#carousel_1 {
+	width: 640px;
+	height: 180px;
+	background: #efefef;
+	overflow: hidden;
+}

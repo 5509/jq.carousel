@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<meta charset="UTF-8">
+	<title>jq.carousel</title>
+	<link rel="stylesheet" href="styles/style.css">
+</html>
+<body>
+
+<div class="cont">
+
+	<h1>jq.carousel</h1>
+
+	<h2>basic carousel</h2>
+	<div class="carousel">
+		<div id="carousel_1" class="carousel_inner">
+			<div class="carousel_box">1</div>
+			<div class="carousel_box">2</div>
+			<div class="carousel_box">3</div>
+			<div class="carousel_box">4</div>
+			<div class="carousel_box">5</div>
+			<div class="carousel_box">6</div>
+			<div class="carousel_box">7</div>
+			<div class="carousel_box">8</div>
+		</div>
+		<p class="btns">
+			<input type="button" id="carousel_1_prev" value="prev">
+			<input type="button" id="carousel_1_next" value="next">
+		</p>
+	</div>
+
+</div>
+
+<script src="scripts/lib/jquery-1.7.1.min.js"></script>
+<script src="scripts/jq.carousel.js"></script>
+<script>
+
+	var $carousel1 = $('#carousel_1').carousel();
+	$('#carousel_1_prev').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel1.carouselNext();
+	});
+	$('#carousel_1_next').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel1.carouselPrev();
+	});
+
+</script>
+
+</body>
+</html>
