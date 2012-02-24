@@ -1,300 +1,307 @@
 /**
  * jq.carousele
  *
- * @version      0.1
+ * @version      0.2
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-07 19:55
+ * 2012-02-24 16:55
  */
 ;(function($, undefined) {
 
-	var Carousel = function(parent, conf) {
-		this.namespace = 'Carousel';
-		if ( this instanceof Carousel ) {
-			return this.init(parent, conf);
-		}
-		return new Carousel(parent, conf);
-	};
-	Carousel.prototype = {
+  var Carousel = function(parent, conf) {
+    this.namespace = 'Carousel';
+    if ( this instanceof Carousel ) {
+      return this.init(parent, conf);
+    }
+    return new Carousel(parent, conf);
+  };
+  Carousel.prototype = {
 
-		init: function(parent, conf) {
-			var self = this,
-				cloned = undefined;
+    init: function(parent, conf) {
+      var self = this,
+        cloned = undefined;
 
-			self.conf = $.extend({
-				type    : 'horizontal', // or vertical
-				easing  : 'swing',      // or custom easing
-				duration: 0.2           // int or float, 0.2 => 0.2s
-			}, conf);
+      self.conf = $.extend({
+        type    : 'horizontal', // or vertical
+        easing  : 'swing',      // or custom easing
+        duration: 0.2           // int or float, 0.2 => 0.2s
+      }, conf);
 
-			self.$elem = parent;
-			self.$carouselWrap = $('<div></div>');
+      self.$elem = parent;
+      self.$carousel_wrap = $('<div></div>');
 
-			self.totalWidth = 0;
-			self.currentItem = 0;
+      self.view_width = parent[0].offsetWidth;
+      self.total_width = 0;
+      self.current_item = 0;
 
-			self.$items = parent.find('.carousel_box');
-			self.itemsLength = self.$items.length;
+      self.$items = parent.find('.carousel_box');
+      self.items_length = self.$items.length;
+      self.items_len_hidden = 0;
+      
 
-			self.$elem.append(
-				self.$carouselWrap
-					.append(
-						self.$items
-					)
-			);
+      self.$elem.append(
+        self.$carousel_wrap
+          .append(
+            self.$items
+          )
+      );
 
-			// setup
-			each(self.$items, function(i) {
-				var item = this;
+      // setup
+      each(self.$items, function(i) {
+        var item = this;
 
-				item.carouselId = i;
-				item.$elem = $(this);
-				item.dataWidth = item.offsetWidth;
-				item.origWidth = item.$elem.css('width');
-				item.$elem.css({
-					float: 'left'
-				});
+        item.carousel_id = i;
+        item.$elem = $(this);
+        item.data_width = item.offsetWidth;
+        item.origWidth = item.$elem.css('width');
+        item.$elem.css({
+          float: 'left'
+        });
 
-				// set totalWidth
-				//self.totalWidth = self.totalWidth + item.dataWidth;
-			});
+        if ( self.items_len_hidden > self.view_width ) return;
+        self.items_len_hidden = self.items_len_hidden + item.data_width;
+      });
+      self.item_width = self.$items.eq(0)[0].data_width;
+      self.items_len_hidden = self.items_len_hidden / self.item_width;
 
-			// clone nodes
+      // clone nodes
+      self._cloneItem();
 
-			self.$elem.css({
-				overflow: 'hidden'
-			});
+      self.$elem.css({
+        overflow: 'hidden'
+      });
 
-			// carousel width and height
-			self.$carouselWrap.css({
-				//width: self.totalWidth,
-				marginLeft: '-' + self.$items.eq(0)[0].dataWidth + 'px',
-				height: self.$items.eq(0)[0].offsetHeight
-			});
+      // carousel width and height
+      self.$carousel_wrap.css({
+        //width: self.total_width,
+        //self.$items.eq(0)[0].data_width
+        marginLeft: '-' + self.items_len_hidden * self.item_width + 'px',
+        height: self.$items.eq(0)[0].offsetHeight
+      });
 
-			cloned = self._cloneItem();
-			self.$items
-				// first item
-				.eq(0)
-					.before(cloned.last)
-				.end()
-				// last item
-				.eq(self.itemsLength-1)
-					.after(cloned.first);
+      self.$items = self.$carousel_wrap.find('.carousel_box');
+      self._setWidth();
+      self.$elem.trigger('carousel.ready');
 
-			self.$items = self.$carouselWrap.find('.carousel_box');
-			self._setWidth();
-			self.$elem.trigger('carousel.ready');
+      return self;
+    },
 
-			return self;
-		},
+    _eventify: function() {
+      var self = this;
 
-		_eventify: function() {
-			var self = this;
+    },
 
-		},
+//    _getItem: function(i) {
+//      var self = this,
+//        $item = undefined;
+//      each(self.$items, function(val, i) {
+//        if ( val[0].carousel_id !== i ) return;
+//        $item = val[0];
+//      });
+//      return $item;
+//    },
 
-		_getItem: function(i) {
-			var self = this,
-				$item = undefined;
-			each(self.$items, function(val, i) {
-				if ( val[0].carouselId !== i ) return;
-				$item = val[0];
-			});
-			return $item;
-		},
+    // returns first and last items
+    _cloneItem: function() {
+      var self = this,
+          // 追加するlengthは表示幅よりもひとつ超えるサイズにする
+          len = self.items_len_hidden,
+          $first = self.$items.flexnth('<', len).reverse(),
+          $last = self.$items.flexnth('>', len).reverse();
 
-		// returns first and last items
-		_cloneItem: function() {
-			var self = this,
-				$items = self.$elem.find('.carousel_box'),
-				$first = $items.eq(0).clone(),
-				$last = $items.eq(self.itemsLength-1).clone();
+        each($first, function() {
+          self.$items.eq(self.$items.length-1).after(this);
+        });
+        each($last, function() {
+          self.$items.eq(0).before(this);
+        });
+    },
 
-			return {
-				first: $first,
-				last : $last
-			};
-		},
+    _setPosition: function() {
+      var self = this;
+    },
 
-		_setPosition: function() {
-			var self = this;
-		},
+    // refresh totalWitdh
+    _getWidth: function(index) {
+      var self = this,
+        $items = self.$elem.find('.carousel_box');
 
-		// refresh totalWitdh
-		_getWidth: function(index) {
-			var self = this,
-				$items = self.$elem.find('.carousel_box');
+      self.total_width = 0;
+      each($items, function(i) {
+        var item = this;
 
-			self.totalWidth = 0;
-			each($items, function(i) {
-				var item = this;
+        item.data_width = item.offsetWidth;
+        // set total_width
+        self.total_width = self.total_width + item.data_width;
+      });
+    },
 
-				item.dataWidth = item.offsetWidth;
-				// set totalWidth
-				self.totalWidth = self.totalWidth + item.dataWidth;
-			});
-		},
+    _setWidth: function() {
+      var self = this;
+      self._getWidth();
+      self.$carousel_wrap.css({
+        width: self.total_width
+      });
+    },
 
-		_setWidth: function() {
-			var self = this;
-			self._getWidth();
-			self.$carouselWrap.css({
-				width: self.totalWidth
-			});
-		},
+    _getNext: function(i) {
+      var self = this;
+      if ( i > 0 ) {
+        if ( i + 1 >= self.item_length - 1 ) {
+          i = 0;
+        } else {
+          i = i + 1;
+        }
+      } else {
+        if ( i + 1 <= 0 ) {
+          i = self.item_length - 1;
+        } else {
+          i = i + 1;
+        }
+      }
+      return i;
+    },
 
-		_getNext: function(i) {
-			var self = this;
-			if ( i > 0 ) {
-				if ( i + 1 >= self.itemLength - 1 ) {
-					i = 0;
-				} else {
-					i = i + 1;
-				}
-			} else {
-				if ( i + 1 <= 0 ) {
-					i = self.itemLength - 1;
-				} else {
-					i = i + 1;
-				}
-			}
-			return i;
-		},
+    _toPrev: function() {
+      var self = this,
+          conf = self.conf,
+          hidden_len = self.items_len_hidden,
+          next = self._getNext(1),
+          next_pos = {};
 
-		_toPrev: function() {
-			var self = this,
-				dfd = $.Deferred(),
-				$first = self.$items.eq(0),
-				next = self._getNext(self.currentItem);
+      // ここに位置計算するやつ書けばいけそう
 
-			if ( self.currentItem + 1 >= self.$items.length - 1 ) {
-				self.current = 0;
-			} else {
-				self.current = self.current + 1;
-			}
+      self.$carousel_wrap
+      .animate({
+        marginLeft: '-=' + self.item_width
+      }, {
+        queue: false,
+        easing: conf.easing,
+        duration: conf.duration*1000
+      });
+    },
 
-			$first.animate({
-				width: 0
-			}, {
-				easing: 'swing',
-				duration: 200,
-				queue: false,
-				complete: function() {
-					$first.remove();
-					self.$items = self.$elem.find('.carousel_box');
-					self.$elem.trigger('carousel.moved');
+    _toNext: function() {
+      var self = this,
+          conf = self.conf,
+          hidden_len = self.items_len_hidden,
+          next = self._getNext(-1),
+          next_pos = {};
 
-					dfd.resolve();
-				}
-			});
+      // ここに位置計算するやつ書けばいけそう
 
-			return dfd.promise();
-		},
+      self.$carousel_wrap
+      .animate({
+        marginLeft: '+=' + self.item_width
+      }, {
+        queue: false,
+        easing: conf.easing,
+        duration: conf.duration*1000
+      });
+    },
 
-		_toNext: function() {
-			var self = this,
-				dfd = $.Deferred(),
-				$last = self.$items.eq(self.$items.length - 1);
+    _hold: function() {
+    },
 
-			$last
-				.css({
-					width: 0
-				})
-				.before(self.$items.eq(0))
-				.animate({
-					width: $last[0].dataWidth
-				}, {
-					easing: 'swing',
-					duration: 200,
-					complete: function() {
-						
-					}
-				});
+    prev: function() {
+      var self = this;
+      self._toPrev();
+    },
 
-			self.$items = self.$elem.find('.carousel_box');
-			self.$elem.trigger('carousel.moved');
-			return dfd.promise();
-		},
+    next: function() {
+      var self = this;
+      self._toNext();
+    },
 
-		_toN: function(n) {
-			var dfd = $.Deferred();
+    go: function(n) {
+    }
 
-			return dfd.promise();
-		},
+  };
 
-		prev: function() {
-			var self = this;
-			self._toPrev();
-		},
+  function extend_method(base, obj) {
+    var c = undefined,
+      namespace = to_first_letter_lower_case(obj.namespace),
+      method_name = undefined;
+    for ( c in obj ) {
+      if ( typeof obj[c] !== 'function'
+        || /(?:^_)|(?:^handleEvent$)|(?:^init$)/.test(c) ) {
+        continue;
+      }
+      method_name = namespace + to_first_letter_upper_case(c);
+      base[method_name] = (function() {
+        var p = c;
+        return function(arguments) {
+          return obj[p](arguments);
+        }
+      }());
+    }
+  }
 
-		next: function() {
-			var self = this;
-			self._toNext();
-		},
+  function to_first_letter_upper_case(string) {
+    return string.replace(
+      /(^[a-z])/,
+      function($1) {
+        return $1.toUpperCase();
+      }
+    );
+  }
 
-		go: function(n) {
-		}
+  function to_first_letter_lower_case(string) {
+    return string.replace(
+      /(^[A-Z])/,
+      function($1) {
+        return $1.toLowerCase();
+      }
+    );
+  }
 
-	};
+  function each(arr, func) {
+    var i = 0,
+        l = undefined;
 
-	function extend_method(base, obj) {
-		var c = undefined,
-			namespace = toFirstLetterLowerCase(obj.namespace),
-			method_name = undefined;
-		for ( c in obj ) {
-			if ( typeof obj[c] !== 'function'
-			  || /(?:^_)|(?:^handleEvent$)|(?:^init$)/.test(c) ) {
-				continue;
-			}
-			method_name = namespace + toFirstLetterUpperCase(c);
-			base[method_name] = (function() {
-				var p = c;
-				return function(arguments) {
-					return obj[p](arguments);
-				}
-			}());
-		}
-	}
+    // arr === number
+    if ( /^\d+$/.test(arr) ) {
+      arr = new Array(arr);
+    }
+    l = arr.length;
 
-	function toFirstLetterUpperCase(string) {
-		return string.replace(
-			/(^[a-z])/,
-			function($1) {
-				return $1.toUpperCase();
-			}
-		);
-	}
+    for ( ; i < l; i = i + 1 ) {
+      func.apply(arr[i], ([i]).concat(arguments));
+    }
+  }
 
-	function toFirstLetterLowerCase(string) {
-		return string.replace(
-			/(^[A-Z])/,
-			function($1) {
-				return $1.toLowerCase();
-			}
-		);
-	}
+  $.fn.flexnth = function(state, n) { // state: n<3, 3<n
+    var i, $elems = this, nth = [];
+    for ( i = 0; i < n; i++ ) {
+      if ( i === n ) break;
+      nth.push(
+        $elems.eq(
+          state !== '<' ? $elems.length-(1+i) : i
+        ).clone()
+      );
+    }
+    return $(nth);
+  };
 
-	function each(arr, func) {
-		var i = 0,
-			l = arr.length;
+  $.fn.reverse = function() {
+    var elems = [];
+    $.each(this, function(i, $item) {
+      elems.unshift($item.clone());
+    });
+    return $(elems);
+  };
 
-		for ( ; i < l; i = i + 1 ) {
-			func.apply(arr[i], ([i]).concat(arguments));
-		}
-	}
+  // method extend
+  jQuery.carousel = Carousel;
+  // $.fn extend
+  jQuery.fn.carousel = function(conf) {
+    var type = Carousel(this, conf);
 
-	// method extend
-	$.carousel = Carousel;
-	// $.fn extend
-	$.fn.carousel = function(conf) {
-		var type = Carousel(this, conf);
+    extend_method(this, type);
+    return this;
+  };
 
-		extend_method(this, type);
-		return this;
-	};
-	
 }(jQuery));
