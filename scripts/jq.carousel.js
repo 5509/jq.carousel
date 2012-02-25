@@ -1,13 +1,13 @@
 /**
  * jq.carousele
  *
- * @version      0.2
+ * @version      0.3
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-24 16:55
+ * 2012-02-25 21:16
  */
 ;(function($, undefined) {
 
@@ -27,6 +27,7 @@
       self.conf = $.extend({
         type    : 'horizontal', // or vertical
         easing  : 'swing',      // or custom easing
+        move    : 1,
         duration: 0.2           // int or float, 0.2 => 0.2s
       }, conf);
 
@@ -71,16 +72,27 @@
       self._cloneItem();
 
       self.$elem.css({
-        overflow: 'hidden'
+        overflow: 'hidden',
+        position: 'relative'
       });
 
       // carousel width and height
+      self.current_pos = -self.items_len_hidden * self.item_width;
+      self.default_pos = self.current_pos;
       self.$carousel_wrap.css({
         //width: self.total_width,
         //self.$items.eq(0)[0].data_width
-        marginLeft: '-' + self.items_len_hidden * self.item_width + 'px',
+        position: 'absolute',
+        left: self.current_pos + 'px',
         height: self.$items.eq(0)[0].offsetHeight
       });
+
+      // max and min point
+      self.max_point = self.default_pos - (self.item_width * self.items_length);
+      self.min_point = self.default_pos;
+
+      // move size
+      self.move_size = self.item_width * self.conf.move;
 
       self.$items = self.$carousel_wrap.find('.carousel_box');
       self._setWidth();
@@ -94,23 +106,32 @@
 
     },
 
-//    _getItem: function(i) {
-//      var self = this,
-//        $item = undefined;
-//      each(self.$items, function(val, i) {
-//        if ( val[0].carousel_id !== i ) return;
-//        $item = val[0];
-//      });
-//      return $item;
-//    },
-
     // returns first and last items
     _cloneItem: function() {
       var self = this,
           // 追加するlengthは表示幅よりもひとつ超えるサイズにする
           len = self.items_len_hidden,
-          $first = self.$items.flexnth('<', len).reverse(),
-          $last = self.$items.flexnth('>', len).reverse();
+          flexnth = function(state, n) { // state: n<3, 3<n
+            var i, $elems = this, nth = [];
+            for ( i = 0; i < n; i++ ) {
+              if ( i === n ) break;
+              nth.push(
+                $elems.eq(
+                  state !== '<' ? $elems.length-(1+i) : i
+                ).clone()
+              );
+            }
+            return $(nth);
+          },
+          reverse = function() {
+            var elems = [];
+            $.each(this, function(i, $item) {
+              elems.unshift($item.clone());
+            });
+            return $(elems);
+          },
+          $first = reverse.call(flexnth.call(self.$items, '<', len)),
+          $last = reverse.call(flexnth.call(self.$items, '>', len));
 
         each($first, function() {
           self.$items.eq(self.$items.length-1).after(this);
@@ -165,38 +186,48 @@
       return i;
     },
 
-    _toPrev: function() {
+    _toNext: function() {
       var self = this,
           conf = self.conf,
           hidden_len = self.items_len_hidden,
           next = self._getNext(1),
-          next_pos = {};
+          prop = {};
 
-      // ここに位置計算するやつ書けばいけそう
+      self.current_pos = self.current_pos - self.move_size;
+      if ( self.current_pos < self.max_point ) {
+        self.$carousel_wrap.css('left', self.default_pos);
+        self.current_pos = self.default_pos - self.move_size;
+      }
+
+      prop.left = self.current_pos;
 
       self.$carousel_wrap
-      .animate({
-        marginLeft: '-=' + self.item_width
-      }, {
+      .animate(prop, {
         queue: false,
         easing: conf.easing,
         duration: conf.duration*1000
       });
     },
 
-    _toNext: function() {
+    _toPrev: function() {
       var self = this,
           conf = self.conf,
           hidden_len = self.items_len_hidden,
+          total_length = self.items_length + hidden_len,
+          items_width = self.item_width * self.items_length,
           next = self._getNext(-1),
-          next_pos = {};
+          prop = {};
 
-      // ここに位置計算するやつ書けばいけそう
+      self.current_pos = self.current_pos + self.move_size;
+      if ( self.default_pos < self.current_pos ) {
+        self.$carousel_wrap.css('left', -self.item_width * total_length);
+        self.current_pos = self.default_pos - items_width + self.move_size;
+      }
+
+      prop.left = self.current_pos;
 
       self.$carousel_wrap
-      .animate({
-        marginLeft: '+=' + self.item_width
-      }, {
+      .animate(prop, {
         queue: false,
         easing: conf.easing,
         duration: conf.duration*1000
@@ -272,27 +303,6 @@
       func.apply(arr[i], ([i]).concat(arguments));
     }
   }
-
-  $.fn.flexnth = function(state, n) { // state: n<3, 3<n
-    var i, $elems = this, nth = [];
-    for ( i = 0; i < n; i++ ) {
-      if ( i === n ) break;
-      nth.push(
-        $elems.eq(
-          state !== '<' ? $elems.length-(1+i) : i
-        ).clone()
-      );
-    }
-    return $(nth);
-  };
-
-  $.fn.reverse = function() {
-    var elems = [];
-    $.each(this, function(i, $item) {
-      elems.unshift($item.clone());
-    });
-    return $(elems);
-  };
 
   // method extend
   jQuery.carousel = Carousel;
