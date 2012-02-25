@@ -28,13 +28,32 @@
 		</p>
 	</div>
 
+	<h2>single carousel with indicator</h2>
+	<div class="carousel">
+		<div id="carousel_2" class="carousel_inner">
+			<div class="carousel_box first">1</div>
+			<div class="carousel_box second">2</div>
+			<div class="carousel_box third">3</div>
+		</div>
+		<p id="indicator_2" class="indicator">
+			<span class="active">1</span>
+			<span>2</span>
+			<span>3</span>
+		</p>
+		<p class="btns">
+			<input type="button" id="carousel_2_prev" value="prev">
+			<input type="button" id="carousel_2_next" value="next">
+		</p>
+	</div>
 </div>
 
 <script src="scripts/lib/jquery-1.7.1.min.js"></script>
 <script src="scripts/jq.carousel.js"></script>
 <script>
 
+(function() {
 	var $carousel1 = $('#carousel_1').carousel();
+
 	$('#carousel_1_prev').on('click', function(ev) {
 		ev.preventDefault();
 		$carousel1.carouselPrev();
@@ -43,6 +62,27 @@
 		ev.preventDefault();
 		$carousel1.carouselNext();
 	});
+}());
+
+(function() {
+	var $carousel2 = $('#carousel_2').carousel(),
+		$indicator2 = $('#indicator_2').find('span');
+
+	$('#carousel_2_prev').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel2.carouselPrev();
+
+		$indicator2.removeClass('active');
+		$indicator2.eq($carousel2.carouselGetCurrent()-1).addClass('active');
+	});
+	$('#carousel_2_next').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel2.carouselNext();
+
+		$indicator2.removeClass('active');
+		$indicator2.eq($carousel2.carouselGetCurrent()-1).addClass('active');
+	});
+}());
 
 </script>
 

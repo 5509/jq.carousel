@@ -1,13 +1,13 @@
 /**
  * jq.carousele
  *
- * @version      0.3
+ * @version      0.4
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-25 21:16
+ * 2012-02-25 22:18
  */
 ;(function($, undefined) {
 
@@ -27,6 +27,7 @@
       self.conf = $.extend({
         type    : 'horizontal', // or vertical
         easing  : 'swing',      // or custom easing
+        start   : 1,
         move    : 1,
         duration: 0.2           // int or float, 0.2 => 0.2s
       }, conf);
@@ -36,13 +37,12 @@
 
       self.view_width = parent[0].offsetWidth;
       self.total_width = 0;
-      self.current_item = 0;
+      self.current = 1;
 
       self.$items = parent.find('.carousel_box');
       self.items_length = self.$items.length;
       self.items_len_hidden = 0;
       
-
       self.$elem.append(
         self.$carousel_wrap
           .append(
@@ -109,7 +109,6 @@
     // returns first and last items
     _cloneItem: function() {
       var self = this,
-          // 追加するlengthは表示幅よりもひとつ超えるサイズにする
           len = self.items_len_hidden,
           flexnth = function(state, n) { // state: n<3, 3<n
             var i, $elems = this, nth = [];
@@ -168,30 +167,48 @@
       });
     },
 
-    _getNext: function(i) {
-      var self = this;
-      if ( i > 0 ) {
-        if ( i + 1 >= self.item_length - 1 ) {
-          i = 0;
-        } else {
-          i = i + 1;
-        }
+    _getNext: function(current) {
+      var self = this,
+          conf = self.conf;
+      if ( current + 1 > self.items_length ) {
+        current = 1;
       } else {
-        if ( i + 1 <= 0 ) {
-          i = self.item_length - 1;
-        } else {
-          i = i + 1;
-        }
+        current = current + 1;
       }
-      return i;
+      return current;
+    },
+
+    _getPrev: function(current) {
+      var self = this,
+          conf = self.conf;
+      if ( current - 1 === 0 ) {
+        current = self.items_length;
+      } else {
+        current = current - 1;
+      }
+      return current;
+    },
+
+    _setCurrent: function(direction) {
+      var self = this,
+          num = undefined,
+          current = self.current;
+      // direction: true => next, false => prev
+      if ( direction ) {
+        num = self._getNext(current);
+      } else {
+        num = self._getPrev(current);
+      }
+      self.current = num;
     },
 
     _toNext: function() {
       var self = this,
           conf = self.conf,
           hidden_len = self.items_len_hidden,
-          next = self._getNext(1),
           prop = {};
+
+      self._setCurrent(true);
 
       self.current_pos = self.current_pos - self.move_size;
       if ( self.current_pos < self.max_point ) {
@@ -215,8 +232,9 @@
           hidden_len = self.items_len_hidden,
           total_length = self.items_length + hidden_len,
           items_width = self.item_width * self.items_length,
-          next = self._getNext(-1),
           prop = {};
+
+      self._setCurrent(false);
 
       self.current_pos = self.current_pos + self.move_size;
       if ( self.default_pos < self.current_pos ) {
@@ -235,6 +253,11 @@
     },
 
     _hold: function() {
+    },
+
+    getCurrent: function() {
+      var self = this;
+      return self.current;
     },
 
     prev: function() {
