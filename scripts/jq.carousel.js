@@ -1,13 +1,14 @@
 /**
  * jq.carousele
+ * Simple and customizable carousel
  *
- * @version      0.5
+ * @version      0.6
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-26 01:18
+ * 2012-02-26 02:56
  */
 ;(function($, undefined) {
 
@@ -21,11 +22,9 @@
   Carousel.prototype = {
 
     init: function(parent, conf) {
-      var self = this,
-        start_pos = 0;
+      var self = this;
 
       self.conf = $.extend({
-        type    : 'horizontal', // or vertical
         easing  : 'swing',      // or custom easing
         start   : 1,            // int
         group   : 1,            // int
@@ -39,16 +38,30 @@
       self.total_width = 0;
       self.current = self.conf.start;
 
-      self.$items = parent.find('.carousel_box');
+      self._build();
+
+      return self;
+    },
+
+    _build: function() {
+      var self = this,
+        start_pos = 0,
+        box_total_width = 0;
+
+      self.$items = self.$elem.find('.carousel_box');
+      self.$items_original = self.$items.clone();
       self.items_length = self.$items.length;
       self.items_len_hidden = 0;
-      
-      self.$elem.append(
+
+      self.$elem.html(
         self.$carousel_wrap
-          .append(
+          .html(
             self.$items
           )
       );
+
+      box_total_width = self.items_length * self.$items[0].offsetWidth;
+      if ( box_total_width <= self.view_width ) return;
 
       // setup
       each(self.$items, function(i) {
@@ -107,13 +120,6 @@
       }
       self._setWidth();
       self.$elem.trigger('carousel.ready');
-
-      return self;
-    },
-
-    _eventify: function() {
-      var self = this;
-
     },
 
     _groupSetup: function() {
@@ -321,8 +327,17 @@
       self._toNext();
     },
 
+    reset: function() {
+      var self = this;
+      self.$elem
+        .empty()
+        .append(self.$items_original);
+    },
+
     refresh: function() {
       var self = this;
+      self.total_width = 0;
+      self._build();
     }
 
   };

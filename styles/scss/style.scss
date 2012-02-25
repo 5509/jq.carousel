@@ -35,7 +35,8 @@ h2 {
 	}
 }
 
-#carousel_1 {
+#carousel_1,
+#carousel_4 {
 	margin: 0 auto;
 	width: 600px;
 	height: 150px;
@@ -43,6 +44,7 @@ h2 {
 	overflow: hidden;
 
 	.carousel_box {
+		float: left;
 		border: solid #fff 5px;
 		width: 140px;
 		height: 140px;
