@@ -9,6 +9,7 @@
 <div class="cont">
 
 	<h1>jq.carousel</h1>
+	<p>Simple and customizable carousel</p>
 
 	<h2>basic carousel</h2>
 	<div class="carousel">
@@ -27,8 +28,21 @@
 			<input type="button" id="carousel_1_next" value="next">
 		</p>
 	</div>
+	<h3>source code</h3>
+	<pre>(function() {
+  var $carousel = $('#carousel_1').carousel();
+  
+  $('#carousel_1_prev').on('click', function(ev) {
+    ev.preventDefault();
+    $carousel.carouselPrev();
+  });
+  $('#carousel_1_next').on('click', function(ev) {
+    ev.preventDefault();
+    $carousel.carouselNext();
+  });
+}());</pre>
 
-	<h2>single carousel with indicator</h2>
+	<h2>single carousel with indicator and custom start</h2>
 	<div class="carousel">
 		<div id="carousel_2" class="carousel_inner">
 			<div class="carousel_box first">1</div>
@@ -36,8 +50,8 @@
 			<div class="carousel_box third">3</div>
 		</div>
 		<p id="indicator_2" class="indicator">
-			<span class="active">1</span>
-			<span>2</span>
+			<span>1</span>
+			<span class="active">2</span>
 			<span>3</span>
 		</p>
 		<p class="btns">
@@ -45,6 +59,62 @@
 			<input type="button" id="carousel_2_next" value="next">
 		</p>
 	</div>
+	<h3>source code</h3>
+	<pre>(function() {
+  var $carousel = $('#carousel_2').carousel({
+      start: 2
+    }),
+    $indicator = $('#indicator_2').find('span');
+
+  $('#carousel_2_prev').on('click', function(ev) {
+    ev.preventDefault();
+    $carousel.carouselPrev();
+
+    $indicator.removeClass('active');
+    $indicator.eq($carousel.carouselGetCurrent()).addClass('active');
+  });
+  $('#carousel_2_next').on('click', function(ev) {
+    ev.preventDefault();
+    $carousel.carouselNext();
+
+    $indicator.removeClass('active');
+    $indicator.eq($carousel.carouselGetCurrent()).addClass('active');
+  });
+}());</pre>
+
+	<h2>group with indicator</h2>
+	<div class="carousel">
+		<div id="carousel_3" class="carousel_inner">
+			<div class="carousel_box">1</div>
+			<div class="carousel_box">2</div>
+			<div class="carousel_box">3</div>
+			<div class="carousel_box">4</div>
+			<div class="carousel_box">5</div>
+			<div class="carousel_box">6</div>
+			<div class="carousel_box">7</div>
+			<div class="carousel_box">8</div>
+		</div>
+		<p id="indicator_3" class="indicator">
+			<span class="active">1</span>
+			<span>2</span>
+			<span>3</span>
+		</p>
+		<p class="btns">
+			<input type="button" id="carousel_3_prev" value="prev">
+			<input type="button" id="carousel_3_next" value="next">
+		</p>
+	</div>
+	<h3>source code</h3>
+	<pre>(function() {
+  var $carousel = $('#carousel_3').carousel({
+      group: 3
+    }),
+    $indicator = $('#indicator_3').find('span');
+
+  // ...
+
+}());</pre>
+
 </div>
 
 <script src="scripts/lib/jquery-1.7.1.min.js"></script>
@@ -52,35 +122,59 @@
 <script>
 
 (function() {
-	var $carousel1 = $('#carousel_1').carousel();
+	var $carousel = $('#carousel_1').carousel();
 
 	$('#carousel_1_prev').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel1.carouselPrev();
+		$carousel.carouselPrev();
 	});
 	$('#carousel_1_next').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel1.carouselNext();
+		$carousel.carouselNext();
 	});
 }());
 
 (function() {
-	var $carousel2 = $('#carousel_2').carousel(),
-		$indicator2 = $('#indicator_2').find('span');
+	var $carousel = $('#carousel_2').carousel({
+			start: 2
+		}),
+		$indicator = $('#indicator_2').find('span');
 
 	$('#carousel_2_prev').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel2.carouselPrev();
+		$carousel.carouselPrev();
 
-		$indicator2.removeClass('active');
-		$indicator2.eq($carousel2.carouselGetCurrent()-1).addClass('active');
+		$indicator.removeClass('active');
+		$indicator.eq($carousel.carouselGetCurrent()).addClass('active');
 	});
 	$('#carousel_2_next').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel2.carouselNext();
+		$carousel.carouselNext();
 
-		$indicator2.removeClass('active');
-		$indicator2.eq($carousel2.carouselGetCurrent()-1).addClass('active');
+		$indicator.removeClass('active');
+		$indicator.eq($carousel.carouselGetCurrent()).addClass('active');
+	});
+}());
+
+(function() {
+	var $carousel = $('#carousel_3').carousel({
+			group: 3
+		}),
+		$indicator = $('#indicator_3').find('span');
+
+	$('#carousel_3_prev').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel.carouselPrev();
+
+		$indicator.removeClass('active');
+		$indicator.eq($carousel.carouselGetCurrent()).addClass('active');
+	});
+	$('#carousel_3_next').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel.carouselNext();
+
+		$indicator.removeClass('active');
+		$indicator.eq($carousel.carouselGetCurrent()).addClass('active');
 	});
 }());
 

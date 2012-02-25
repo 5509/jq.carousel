@@ -1,13 +1,13 @@
 /**
  * jq.carousele
  *
- * @version      0.4
+ * @version      0.5
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-25 22:18
+ * 2012-02-26 01:18
  */
 ;(function($, undefined) {
 
@@ -22,13 +22,13 @@
 
     init: function(parent, conf) {
       var self = this,
-        cloned = undefined;
+        start_pos = 0;
 
       self.conf = $.extend({
         type    : 'horizontal', // or vertical
         easing  : 'swing',      // or custom easing
-        start   : 1,
-        move    : 1,
+        start   : 1,            // int
+        group   : 1,            // int
         duration: 0.2           // int or float, 0.2 => 0.2s
       }, conf);
 
@@ -37,7 +37,7 @@
 
       self.view_width = parent[0].offsetWidth;
       self.total_width = 0;
-      self.current = 1;
+      self.current = self.conf.start;
 
       self.$items = parent.find('.carousel_box');
       self.items_length = self.$items.length;
@@ -68,8 +68,13 @@
       self.item_width = self.$items.eq(0)[0].data_width;
       self.items_len_hidden = self.items_len_hidden / self.item_width;
 
-      // clone nodes
-      self._cloneItem();
+      if ( self.conf.group !== 1 ) {
+        self._groupSetup();
+        self._cloneGroup();
+      } else {
+        // clone nodes
+        self._cloneItem();
+      }
 
       self.$elem.css({
         overflow: 'hidden',
@@ -77,8 +82,9 @@
       });
 
       // carousel width and height
-      self.current_pos = -self.items_len_hidden * self.item_width;
-      self.default_pos = self.current_pos;
+      start_pos = self.items_len_hidden + self.current - 1;
+      self.current_pos = -start_pos * self.item_width;
+      self.default_pos = -self.items_len_hidden * self.item_width;
       self.$carousel_wrap.css({
         //width: self.total_width,
         //self.$items.eq(0)[0].data_width
@@ -92,9 +98,13 @@
       self.min_point = self.default_pos;
 
       // move size
-      self.move_size = self.item_width * self.conf.move;
+      self.move_size = self.item_width;
 
-      self.$items = self.$carousel_wrap.find('.carousel_box');
+      if ( self.conf.group === 1 ) {
+        self.$items = self.$carousel_wrap.find('.carousel_box');
+      } else {
+        self.$items = self.$carousel_wrap.find('.carousel_group_inner');
+      }
       self._setWidth();
       self.$elem.trigger('carousel.ready');
 
@@ -106,48 +116,92 @@
 
     },
 
+    _groupSetup: function() {
+      var self = this,
+        i = 0, k = 0,
+        l = self.items_length,
+        conf = self.conf,
+        division = l / conf.group,
+        group_length = Math.ceil(division),
+        group = new Array(group_length),
+        group_width = self.item_width * conf.group;
+
+      for ( ; i < l; i++ ) {
+        if ( i !== 0 && i % conf.group === 0 ) {
+          k = k + 1;
+        }
+        if ( !group[k] ) {
+          group[k] = $('<div class="carousel_group_inner"></div>');
+          group[k].css({
+            float: 'left',
+            width: group_width
+          });
+        }
+        group[k].append(self.$items.eq(i));
+      }
+      for ( i = 0; i < group_length; i++ ) {
+        self.$carousel_wrap.append(group[i]);
+      }
+      self.$items = self.$carousel_wrap.find('.carousel_group_inner');
+      self.items_length = self.$items.length;
+      self.items_len_hidden = 1;
+      self.item_width = self.item_width * conf.group;
+    },
+
     // returns first and last items
     _cloneItem: function() {
       var self = this,
-          len = self.items_len_hidden,
-          flexnth = function(state, n) { // state: n<3, 3<n
-            var i, $elems = this, nth = [];
-            for ( i = 0; i < n; i++ ) {
-              if ( i === n ) break;
-              nth.push(
-                $elems.eq(
-                  state !== '<' ? $elems.length-(1+i) : i
-                ).clone()
-              );
-            }
-            return $(nth);
-          },
-          reverse = function() {
-            var elems = [];
-            $.each(this, function(i, $item) {
-              elems.unshift($item.clone());
-            });
-            return $(elems);
-          },
-          $first = reverse.call(flexnth.call(self.$items, '<', len)),
-          $last = reverse.call(flexnth.call(self.$items, '>', len));
+        len = self.items_len_hidden,
+        flexnth = function(state, n) { // state: n<3, 3<n
+          var i, $elems = this, nth = [];
+          for ( i = 0; i < n; i++ ) {
+            if ( i === n ) break;
+            nth.push(
+              $elems.eq(
+                state !== '<' ? $elems.length-(1+i) : i
+              ).clone()
+            );
+          }
+          return $(nth);
+        },
+        reverse = function() {
+          var elems = [];
+          $.each(this, function(i, $item) {
+            elems.unshift($item.clone());
+          });
+          return $(elems);
+        },
+        $first = reverse.call(flexnth.call(self.$items, '<', len)),
+        $last = reverse.call(flexnth.call(self.$items, '>', len));
 
-        each($first, function() {
-          self.$items.eq(self.$items.length-1).after(this);
-        });
-        each($last, function() {
-          self.$items.eq(0).before(this);
-        });
+      each($first, function() {
+        self.$items.eq(self.$items.length-1).after(this);
+      });
+      each($last, function() {
+        self.$items.eq(0).before(this);
+      });
     },
 
-    _setPosition: function() {
-      var self = this;
+    _cloneGroup: function() {
+      var self = this,
+        len = self.items_len_hidden,
+        $first = self.$items.eq(0).clone(),
+        $last = self.$items.eq(self.items_length-1).clone();
+
+      self.$items.eq(0).before($last);
+      self.$items.eq(self.$items.length-1).after($first);
     },
 
     // refresh totalWitdh
     _getWidth: function(index) {
       var self = this,
+        $items = undefined;
+
+      if ( self.conf.group === 1 ) {
         $items = self.$elem.find('.carousel_box');
+      } else {
+        $items = self.$elem.find('.carousel_group_inner');
+      }
 
       self.total_width = 0;
       each($items, function(i) {
@@ -169,7 +223,7 @@
 
     _getNext: function(current) {
       var self = this,
-          conf = self.conf;
+        conf = self.conf;
       if ( current + 1 > self.items_length ) {
         current = 1;
       } else {
@@ -180,7 +234,7 @@
 
     _getPrev: function(current) {
       var self = this,
-          conf = self.conf;
+        conf = self.conf;
       if ( current - 1 === 0 ) {
         current = self.items_length;
       } else {
@@ -191,8 +245,8 @@
 
     _setCurrent: function(direction) {
       var self = this,
-          num = undefined,
-          current = self.current;
+        num = undefined,
+        current = self.current;
       // direction: true => next, false => prev
       if ( direction ) {
         num = self._getNext(current);
@@ -204,9 +258,9 @@
 
     _toNext: function() {
       var self = this,
-          conf = self.conf,
-          hidden_len = self.items_len_hidden,
-          prop = {};
+        conf = self.conf,
+        hidden_len = self.items_len_hidden,
+        prop = {};
 
       self._setCurrent(true);
 
@@ -228,11 +282,11 @@
 
     _toPrev: function() {
       var self = this,
-          conf = self.conf,
-          hidden_len = self.items_len_hidden,
-          total_length = self.items_length + hidden_len,
-          items_width = self.item_width * self.items_length,
-          prop = {};
+        conf = self.conf,
+        hidden_len = self.items_len_hidden,
+        total_length = self.items_length + hidden_len,
+        items_width = self.item_width * self.items_length,
+        prop = {};
 
       self._setCurrent(false);
 
@@ -252,12 +306,9 @@
       });
     },
 
-    _hold: function() {
-    },
-
     getCurrent: function() {
       var self = this;
-      return self.current;
+      return self.current - 1;
     },
 
     prev: function() {
@@ -270,7 +321,8 @@
       self._toNext();
     },
 
-    go: function(n) {
+    refresh: function() {
+      var self = this;
     }
 
   };
