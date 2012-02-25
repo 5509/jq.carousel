@@ -2,13 +2,13 @@
  * jq.carousele
  * Simple and customizable carousel
  *
- * @version      0.6
+ * @version      0.61
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-26 02:56
+ * 2012-02-26 03:00
  */
 ;(function($, undefined) {
 
@@ -320,11 +320,15 @@
     prev: function() {
       var self = this;
       self._toPrev();
+
+      return self.$elem;
     },
 
     next: function() {
       var self = this;
       self._toNext();
+
+      return self.$elem;
     },
 
     reset: function() {
@@ -332,12 +336,16 @@
       self.$elem
         .empty()
         .append(self.$items_original);
+
+      return self.$elem;
     },
 
     refresh: function() {
       var self = this;
       self.total_width = 0;
       self._build();
+
+      return self.$elem;
     }
 
   };
