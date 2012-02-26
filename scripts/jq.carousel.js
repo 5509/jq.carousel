@@ -2,13 +2,13 @@
  * jq.carousele
  * Simple and customizable carousel
  *
- * @version      0.61
+ * @version      0.7
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-26 03:00
+ * 2012-02-26 15:59
  */
 ;(function($, undefined) {
 
@@ -25,10 +25,11 @@
       var self = this;
 
       self.conf = $.extend({
-        easing  : 'swing',      // or custom easing
-        start   : 1,            // int
-        group   : 1,            // int
-        duration: 0.2           // int or float, 0.2 => 0.2s
+        easing   : 'swing', // or custom easing
+        start    : 1,       // int
+        group    : 1,       // int
+        duration : 0.2,     // int or float, 0.2 => 0.2s
+        indicator: false    // boolean
       }, conf);
 
       self.$elem = parent;
@@ -39,6 +40,8 @@
       self.current = self.conf.start;
 
       self._build();
+      self._setIndicator();
+      self._eventify();
 
       return self;
     },
@@ -120,6 +123,24 @@
       }
       self._setWidth();
       self.$elem.trigger('carousel.ready');
+    },
+
+    _eventify: function() {
+      var self = this,
+        conf = self.conf,
+        $indicator = undefined;
+
+      if ( conf.indicator ) {
+        $indicator = self.$indicator;
+        self.bind({
+          'Carousel.prev': function() {
+            $indicator.indicatorActive();
+          },
+          'Carousel.next': function() {
+            $indicator.indicatorActive();
+          }
+        });
+      }
     },
 
     _groupSetup: function() {
@@ -284,6 +305,8 @@
         easing: conf.easing,
         duration: conf.duration*1000
       });
+
+      self.$elem.trigger('Carousel.next');
     },
 
     _toPrev: function() {
@@ -310,6 +333,56 @@
         easing: conf.easing,
         duration: conf.duration*1000
       });
+
+      self.$elem.trigger('Carousel.prev');
+    },
+
+    _getIndicator: function(num) {
+      var self = this,
+        indicator = Indicator(self, num),
+        $indicator = $('<div class="carousel_indicator"></div>');
+
+      $indicator.append(indicator.$elems);
+      extend_method($indicator, indicator);
+
+      return $indicator;
+    },
+
+    _setIndicator: function(num) {
+      var self = this;
+      if ( !self.conf.indicator ) {
+        return;
+      }
+      if ( !self.$indicator ) {
+        self.$indicator = self._getIndicator(num);
+        self.$elem.after(self.$indicator);
+      } else {
+        self.$indicator.append(
+          self.$indicator.indicatorRefresh()
+        );
+      }
+    },
+
+    bind: function() {
+      var self = this,
+        a = arguments,
+        c = undefined,
+        bind = function(listener, func) {
+          self.$elem.bind(listener, func);
+        };
+
+      if ( a[0] === 'object' ) {
+        for ( c in a[0] ) {
+          bind(c, a[0][c]);
+        }
+      } else {
+        bind(a[0], a[1]);
+      }
+    },
+
+    indicator: function(num) {
+      var self = this;
+      return self._getIndicator(num);
     },
 
     getCurrent: function() {
@@ -337,6 +410,7 @@
         .empty()
         .append(self.$items_original);
 
+      self.$elem.trigger('Carousel.reset');
       return self.$elem;
     },
 
@@ -344,10 +418,66 @@
       var self = this;
       self.total_width = 0;
       self._build();
+      self._setIndicator();
 
+      self.$elem.trigger('Carousel.refresh');
       return self.$elem;
     }
+  };
 
+  var Indicator = function(carousel, num) {
+    this.namespace = 'Indicator';
+    if ( this instanceof Indicator ) {
+      return this.init(carousel, num);
+    }
+    return new Indicator(carousel, num);
+  };
+  Indicator.prototype = {
+    init: function(carousel, num) {
+      var self = this;
+      self.carousel = carousel;
+      self._build(num);
+    },
+
+    _build: function(num) {
+      var self = this,
+        carousel = self.carousel,
+        current = carousel.getCurrent(),
+        i = 0, l = carousel.items_length,
+        indi = '',
+        active = '';
+        for ( ; i < l; i++ ) {
+          if ( i === current ) {
+            active = ' class="active"';
+          } else {
+            active = '';
+          }
+          indi = indi + '<span' + active + '>';
+          indi = indi + (num ? i : '');
+          indi = indi + '</span>';
+        }
+        self.$elems = $(indi);
+    },
+
+    _setActive: function() {
+      var self = this,
+        carousel = self.carousel;
+
+        self.$elems.removeClass('active');
+        self.$elems.eq(carousel.getCurrent()).addClass('active');
+    },
+
+    refresh: function() {
+      var self = this;
+      self.$elems.remove();
+      self._build();
+      return self.$elems;
+    },
+
+    active: function() {
+      var self = this;
+      self._setActive();
+    }
   };
 
   function extend_method(base, obj) {
@@ -406,9 +536,9 @@
   jQuery.carousel = Carousel;
   // $.fn extend
   jQuery.fn.carousel = function(conf) {
-    var type = Carousel(this, conf);
+    var carousel = Carousel(this, conf);
 
-    extend_method(this, type);
+    extend_method(this, carousel);
     return this;
   };
 
