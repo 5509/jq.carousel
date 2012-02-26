@@ -14,10 +14,13 @@ h2 {
 }
 
 .carousel {
-	.indicator {
+
+	.carousel_indicator {
+		padding-top: 5px;
 		text-align: center;
 
 		span {
+			margin: 0 2px;
 			border-radius: 5px;
 			display: inline-block;
 			width: 10px;
