@@ -2,13 +2,13 @@
  * jq.carousele
  * Simple and customizable carousel
  *
- * @version      0.8
+ * @version      0.9
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-26 22:33
+ * 2012-02-27 01:19
  */
 ;(function($, undefined) {
 
@@ -25,6 +25,7 @@
       var self = this;
 
       self.conf = $.extend({
+        loop     : true,    // boolean
         easing   : 'swing', // or custom easing
         start    : 1,       // int
         group    : 1,       // int
@@ -85,10 +86,14 @@
 
       if ( self.conf.group !== 1 ) {
         self._groupSetup();
-        self._cloneGroup();
+        if ( self.conf.loop ) {
+          self._cloneGroup();
+        }
       } else {
         // clone nodes
-        self._cloneItem();
+        if ( self.conf.loop ) {
+          self._cloneItem();
+        }
       }
 
       self.$elem.css({
@@ -97,9 +102,15 @@
       });
 
       // carousel width and height
-      start_pos = self.items_len_hidden + self.current - 1;
-      self.current_pos = -start_pos * self.item_width;
-      self.default_pos = -self.items_len_hidden * self.item_width;
+      if ( self.conf.loop ) {
+        start_pos = self.items_len_hidden + self.current - 1;
+        self.current_pos = -start_pos * self.item_width;
+        self.default_pos = -self.items_len_hidden * self.item_width;
+      } else {
+        start_pos = self.items_length < self.conf.start ? 1 : self.conf.start;
+        self.current_pos = 0;
+        self.default_pos = 0;
+      }
       self.$carousel_wrap.css({
         position: 'absolute',
         left: self.current_pos + 'px',
@@ -251,10 +262,16 @@
         view_width = self.view_width,
         items_block_width = self.items_length * self.item_width;
 
-      if ( view_width < items_block_width ) {
-        return true;
-      } else {
+      if ( items_block_width <= view_width ) {
         return false;
+      } else
+      if ( self.current === self.items_length ) {
+        return 'max';
+      } else
+      if ( self.current === 1 ) {
+        return 'min';
+      } else {
+        return true;
       }
     },
 
@@ -299,6 +316,9 @@
         hidden_len = self.items_len_hidden,
         prop = {};
 
+      if ( !self.conf.loop && self.current === self.items_length ) {
+        return;
+      }
       self._setCurrent(true);
 
       self.current_pos = self.current_pos - self.move_size;
@@ -318,7 +338,6 @@
           self.$elem.trigger('Carousel.next');
         }
       });
-
     },
 
     _toPrev: function() {
@@ -329,6 +348,9 @@
         items_width = self.item_width * self.items_length,
         prop = {};
 
+      if ( !self.conf.loop && self.current === 1 ) {
+        return;
+      }
       self._setCurrent(false);
 
       self.current_pos = self.current_pos + self.move_size;

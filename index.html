@@ -165,6 +165,72 @@
   });
 }());</pre>
 
+	<h2>single view with killed looping</h2>
+	<div class="carousel">
+		<div id="carousel_6" class="carousel_inner">
+			<div class="carousel_box first">1</div>
+			<div class="carousel_box second">2</div>
+			<div class="carousel_box third">3</div>
+		</div>
+		<p class="btns">
+			<input type="button" id="carousel_6_prev" value="prev">
+			<input type="button" id="carousel_6_next" value="next">
+		</p>
+	</div>
+	<pre>var $carousel = $('#carousel_6').carousel({
+      loop: false,
+      indicator: true
+    }),
+    $prev = $('#carousel_6_prev'),
+    $next = $('#carousel_6_next'),
+    set_state = function() {
+      var state = $carousel.carouselGetMoveState();
+      switch ( state ) {
+      case 'min':
+        $prev.prop('disabled', 'disabled');
+        break;
+      case 'max':
+        $next.prop('disabled', 'disabled');
+        break;
+      case true:
+        $prev.prop('disabled', '');
+        $next.prop('disabled', '');
+        break;
+      default:
+        $prev.prop('disabled', 'disabled');
+        $next.prop('disabled', 'disabled');
+      }
+    };
+
+  // ...
+
+  $carousel.bind({
+    'Carousel.next': function() {
+      set_state();
+    },
+    'Carousel.prev': function() {
+      set_state();
+    }
+  });</pre>
+
+	<h2>group with killed looping</h2>
+	<div class="carousel">
+		<div id="carousel_7" class="carousel_inner">
+			<div class="carousel_box">1</div>
+			<div class="carousel_box">2</div>
+			<div class="carousel_box">3</div>
+			<div class="carousel_box">4</div>
+			<div class="carousel_box">5</div>
+			<div class="carousel_box">6</div>
+			<div class="carousel_box">7</div>
+			<div class="carousel_box">8</div>
+		</div>
+		<p class="btns">
+			<input type="button" id="carousel_7_prev" value="prev">
+			<input type="button" id="carousel_7_next" value="next">
+		</p>
+	</div>
+
 </div>
 
 <script src="scripts/lib/jquery-1.7.1.min.js"></script>
@@ -272,6 +338,99 @@
 			alert('moved to prev');
 		}
 	});
+}());
+
+(function() {
+
+	var $carousel = $('#carousel_6').carousel({
+			loop: false,
+			indicator: true
+		}),
+		$prev = $('#carousel_6_prev'),
+		$next = $('#carousel_6_next'),
+		set_state = function() {
+			var state = $carousel.carouselGetMoveState();
+			switch ( state ) {
+			case 'min':
+				$prev.prop('disabled', 'disabled');
+				break;
+			case 'max':
+				$next.prop('disabled', 'disabled');
+				break;
+			case true:
+				$prev.prop('disabled', '');
+				$next.prop('disabled', '');
+				break;
+			default:
+				$prev.prop('disabled', 'disabled');
+				$next.prop('disabled', 'disabled');
+			}
+		};
+
+	$prev.on('click', function() {
+		$carousel.carouselPrev();
+	});
+	$next.on('click', function() {
+		$carousel.carouselNext();
+	});
+
+	set_state();
+	$carousel.bind({
+		'Carousel.next': function() {
+			set_state();
+		},
+		'Carousel.prev': function() {
+			set_state();
+		}
+	});
+
+}());
+
+(function() {
+
+	var $carousel = $('#carousel_7').carousel({
+			loop: false,
+			group: 3,
+			indicator: true
+		}),
+		$prev = $('#carousel_7_prev'),
+		$next = $('#carousel_7_next'),
+		set_state = function() {
+			var state = $carousel.carouselGetMoveState();
+			switch ( state ) {
+			case 'min':
+				$prev.prop('disabled', 'disabled');
+				break;
+			case 'max':
+				$next.prop('disabled', 'disabled');
+				break;
+			case true:
+				$prev.prop('disabled', '');
+				$next.prop('disabled', '');
+				break;
+			default:
+				$prev.prop('disabled', 'disabled');
+				$next.prop('disabled', 'disabled');
+			}
+		};
+
+	set_state();
+	$prev.on('click', function() {
+		$carousel.carouselPrev();
+	});
+	$next.on('click', function() {
+		$carousel.carouselNext();
+	});
+
+	$carousel.bind({
+		'Carousel.next': function() {
+			set_state();
+		},
+		'Carousel.prev': function() {
+			set_state();
+		}
+	});
+
 }());
 
 </script>
