@@ -1,14 +1,14 @@
-/**
+/*!
  * jq.carousele
  * Simple and customizable carousel
  *
- * @version      0.72
+ * @version      0.8
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-26 17:25
+ * 2012-02-26 22:33
  */
 ;(function($, undefined) {
 
@@ -64,7 +64,6 @@
       );
 
       box_total_width = self.items_length * self.$items[0].offsetWidth;
-      //if ( box_total_width <= self.view_width ) return;
 
       // setup
       each(self.$items, function(i) {
@@ -128,17 +127,18 @@
         conf = self.conf,
         $indicator = undefined;
 
-      if ( conf.indicator ) {
-        $indicator = self.$indicator;
-        self.bind({
-          'Carousel.prev': function() {
-            $indicator.indicatorActive();
-          },
-          'Carousel.next': function() {
-            $indicator.indicatorActive();
-          }
-        });
+      if ( !conf.indicator ) {
+        return;
       }
+      $indicator = self.$indicator;
+      self.bind({
+        'Carousel.prev': function() {
+          $indicator.indicatorActive();
+        },
+        'Carousel.next': function() {
+          $indicator.indicatorActive();
+        }
+      });
     },
 
     _groupSetup: function() {
@@ -177,7 +177,7 @@
     _cloneItem: function() {
       var self = this,
         len = self.items_len_hidden,
-        flexnth = function(state, n) { // state: n<3, 3<n
+        flexnth = function(state, n) {
           var i, $elems = this, nth = [];
           for ( i = 0; i < n; i++ ) {
             if ( i === n ) break;
@@ -244,6 +244,18 @@
       self.$carousel_wrap.css({
         width: self.total_width
       });
+    },
+
+    _moveState: function() {
+      var self = this,
+        view_width = self.view_width,
+        items_block_width = self.items_length * self.item_width;
+
+      if ( view_width < items_block_width ) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     _getNext: function(current) {
@@ -390,6 +402,11 @@
     getCurrent: function() {
       var self = this;
       return self.current - 1;
+    },
+
+    getMoveState: function() {
+      var self = this;
+      return self._moveState();
     },
 
     prev: function() {
