@@ -1,5 +1,5 @@
 /*!
- * jq.carousele
+ * jq.carousel
  * Simple and customizable carousel
  *
  * @version      0.92
