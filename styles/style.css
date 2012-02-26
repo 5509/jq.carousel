@@ -11,10 +11,12 @@ h2 {
   padding-top: 20px;
 }
 
-.carousel .indicator {
+.carousel .carousel_indicator {
+  padding-top: 5px;
   text-align: center;
 }
-.carousel .indicator span {
+.carousel .carousel_indicator span {
+  margin: 0 2px;
   border-radius: 5px;
   display: inline-block;
   width: 10px;
@@ -22,7 +24,7 @@ h2 {
   background: #888;
   text-indent: -1000em;
 }
-.carousel .indicator span.active {
+.carousel .carousel_indicator span.active {
   background: #000;
 }
 .carousel .btns {

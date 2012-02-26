@@ -51,11 +51,6 @@
 			<div class="carousel_box second">2</div>
 			<div class="carousel_box third">3</div>
 		</div>
-		<p id="indicator_2" class="indicator">
-			<span>1</span>
-			<span class="active">2</span>
-			<span>3</span>
-		</p>
 		<p class="btns">
 			<input type="button" id="carousel_2_prev" value="prev">
 			<input type="button" id="carousel_2_next" value="next">
@@ -64,23 +59,17 @@
 	<h3>source code</h3>
 	<pre>(function() {
   var $carousel = $('#carousel_2').carousel({
-      start: 2
-    }),
-    $indicator = $('#indicator_2').find('span');
+      start: 2, // start setting
+      indicator: true // indicator setting
+   });
 
   $('#carousel_2_prev').on('click', function(ev) {
     ev.preventDefault();
     $carousel.carouselPrev();
-
-    $indicator.removeClass('active');
-    $indicator.eq($carousel.carouselGetCurrent()).addClass('active');
   });
   $('#carousel_2_next').on('click', function(ev) {
     ev.preventDefault();
     $carousel.carouselNext();
-
-    $indicator.removeClass('active');
-    $indicator.eq($carousel.carouselGetCurrent()).addClass('active');
   });
 }());</pre>
 
@@ -96,11 +85,6 @@
 			<div class="carousel_box">7</div>
 			<div class="carousel_box">8</div>
 		</div>
-		<p id="indicator_3" class="indicator">
-			<span class="active">1</span>
-			<span>2</span>
-			<span>3</span>
-		</p>
 		<p class="btns">
 			<input type="button" id="carousel_3_prev" value="prev">
 			<input type="button" id="carousel_3_next" value="next">
@@ -109,9 +93,9 @@
 	<h3>source code</h3>
 	<pre>(function() {
   var $carousel = $('#carousel_3').carousel({
-      group: 3
-    }),
-    $indicator = $('#indicator_3').find('span');
+      group: 3, // group setting
+	  indicator: true
+    });
 
   // ...
 
@@ -130,7 +114,9 @@
 	</div>
 	<h3>source code</h3>
 	<pre>(function() {
-  var $carousel = $('#carousel_4').carousel(),
+  var $carousel = $('#carousel_4').carousel({
+      indicator: true
+    }),
     num = 1;
 
   $('#carousel_4_add').on('click', function(ev) {
@@ -169,50 +155,40 @@
 
 (function() {
 	var $carousel = $('#carousel_2').carousel({
-			start: 2
-		}),
-		$indicator = $('#indicator_2').find('span');
+			start: 2,
+			indicator: true
+		});
 
 	$('#carousel_2_prev').on('click', function(ev) {
 		ev.preventDefault();
 		$carousel.carouselPrev();
-
-		$indicator.removeClass('active');
-		$indicator.eq($carousel.carouselGetCurrent()).addClass('active');
 	});
 	$('#carousel_2_next').on('click', function(ev) {
 		ev.preventDefault();
 		$carousel.carouselNext();
-
-		$indicator.removeClass('active');
-		$indicator.eq($carousel.carouselGetCurrent()).addClass('active');
 	});
 }());
 
 (function() {
 	var $carousel = $('#carousel_3').carousel({
-			group: 3
-		}),
-		$indicator = $('#indicator_3').find('span');
+			group: 3,
+			indicator: true
+		});
 
 	$('#carousel_3_prev').on('click', function(ev) {
 		ev.preventDefault();
 		$carousel.carouselPrev();
-
-		$indicator.removeClass('active');
-		$indicator.eq($carousel.carouselGetCurrent()).addClass('active');
 	});
 	$('#carousel_3_next').on('click', function(ev) {
 		ev.preventDefault();
 		$carousel.carouselNext();
-
-		$indicator.removeClass('active');
-		$indicator.eq($carousel.carouselGetCurrent()).addClass('active');
 	});
 }());
 
 (function() {
-	var $carousel = $('#carousel_4').carousel(),
+	var $carousel = $('#carousel_4').carousel({
+			indicator: true
+		}),
 		num = 1;
 
 	$('#carousel_4_add').on('click', function(ev) {
