@@ -133,7 +133,46 @@
     ev.preventDefault();
     $carousel.carouselNext();
   });
-}());<pre>
+}());</pre>
+
+	<h2>Other options and events</h2>
+	<div class="carousel">
+		<div id="carousel_5" class="carousel_inner">
+			<div class="carousel_box first">1</div>
+			<div class="carousel_box second">2</div>
+			<div class="carousel_box third">3</div>
+		</div>
+		<p class="btns">
+			<input type="button" id="carousel_5_prev" value="prev">
+			<input type="button" id="carousel_5_next" value="next">
+		</p>
+	</div>
+	<h3>source code</h3>
+	<pre>(function() {
+  var $carousel = $('#carousel_5').carousel({
+    indicator: true,
+    easing: 'linear', // easing
+    duration: 0.5 // move duration
+  });
+
+  $('#carousel_5_prev').on('click', function(ev) {
+    ev.preventDefault();
+    $carousel.carouselPrev();
+  });
+  $('#carousel_5_next').on('click', function(ev) {
+    ev.preventDefault();
+    $carousel.carouselNext();
+  });
+
+  $carousel.bind({
+    'Carousel.next': function() {
+      alert('moved to next');
+    },
+    'Carousel.prev': function() {
+      alert('moved to prev');
+    }
+  });
+}());</pre>
 
 </div>
 
@@ -205,6 +244,32 @@
 	$('#carousel_4_next').on('click', function(ev) {
 		ev.preventDefault();
 		$carousel.carouselNext();
+	});
+}());
+
+(function() {
+	var $carousel = $('#carousel_5').carousel({
+		indicator: true,
+		easing: 'linear',
+		duration: 0.5
+	});
+
+	$('#carousel_5_prev').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel.carouselPrev();
+	});
+	$('#carousel_5_next').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel.carouselNext();
+	});
+
+	$carousel.bind({
+		'Carousel.next': function() {
+			alert('moved to next');
+		},
+		'Carousel.prev': function() {
+			alert('moved to prev');
+		}
 	});
 }());
 

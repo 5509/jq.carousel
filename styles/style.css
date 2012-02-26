@@ -52,13 +52,15 @@ h2 {
   font-size: 123%;
 }
 
-#carousel_2 {
+#carousel_2,
+#carousel_5 {
   margin: 0 auto;
   width: 600px;
   height: 140px;
   overflow: hidden;
 }
-#carousel_2 .carousel_box {
+#carousel_2 .carousel_box,
+#carousel_5 .carousel_box {
   width: 600px;
   height: 140px;
   color: #fff;
@@ -67,10 +69,12 @@ h2 {
   text-align: center;
   font-size: 123%;
 }
-#carousel_2 .carousel_box.second {
+#carousel_2 .carousel_box.second,
+#carousel_5 .carousel_box.second {
   background: #666;
 }
-#carousel_2 .carousel_box.third {
+#carousel_2 .carousel_box.third,
+#carousel_5 .carousel_box.third {
   background: #999;
 }
 

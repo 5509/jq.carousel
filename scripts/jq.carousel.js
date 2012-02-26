@@ -2,13 +2,13 @@
  * jq.carousele
  * Simple and customizable carousel
  *
- * @version      0.71
+ * @version      0.72
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-26 17:08
+ * 2012-02-26 17:25
  */
 ;(function($, undefined) {
 
@@ -85,7 +85,6 @@
       self.items_len_hidden = self.items_len_hidden / self.item_width;
 
       if ( self.conf.group !== 1 ) {
-        console.log(self.$elem, self.conf.group);
         self._groupSetup();
         self._cloneGroup();
       } else {
@@ -302,10 +301,12 @@
       .animate(prop, {
         queue: false,
         easing: conf.easing,
-        duration: conf.duration*1000
+        duration: conf.duration*1000,
+        complete: function() {
+          self.$elem.trigger('Carousel.next');
+        }
       });
 
-      self.$elem.trigger('Carousel.next');
     },
 
     _toPrev: function() {
@@ -330,10 +331,12 @@
       .animate(prop, {
         queue: false,
         easing: conf.easing,
-        duration: conf.duration*1000
+        duration: conf.duration*1000,
+        complete: function() {
+          self.$elem.trigger('Carousel.prev');
+        }
       });
 
-      self.$elem.trigger('Carousel.prev');
     },
 
     _getIndicator: function(num) {
