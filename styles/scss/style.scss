@@ -2,6 +2,7 @@
 
 @import url(normalize.css);
 @import url(fonts.css);
+@import url(http://fonts.googleapis.com/css?family=Numans,Droid+Sans);
 
 @mixin preset {
 	margin-right: auto;
@@ -15,13 +16,27 @@
 	width: 800px;
 }
 
+h1 {
+	font-family: 'Numans', sans-serif;
+}
+h2,
+h3,
+p {
+	font-family: 'Droid Sans', sans-serif;
+}
+
+h1,
+.description,
+h3,
+pre {
+	@include preset;
+}
+
 h2 {
 	@include preset;
 	padding-top: 20px;
 }
-h3, pre {
-	@include preset;
-}
+
 
 .carousel {
 

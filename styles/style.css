@@ -1,10 +1,30 @@
 @charset "utf-8";
 @import url(normalize.css);
 @import url(fonts.css);
+@import url(http://fonts.googleapis.com/css?family=Numans,Droid+Sans);
 .cont {
   margin: 0 auto;
   padding: 0 10px;
   width: 800px;
+}
+
+h1 {
+  font-family: 'Numans', sans-serif;
+}
+
+h2,
+h3,
+p {
+  font-family: 'Droid Sans', sans-serif;
+}
+
+h1,
+.description,
+h3,
+pre {
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
 }
 
 h2 {
@@ -12,12 +32,6 @@ h2 {
   margin-left: auto;
   width: 600px;
   padding-top: 20px;
-}
-
-h3, pre {
-  margin-right: auto;
-  margin-left: auto;
-  width: 600px;
 }
 
 .carousel .carousel_indicator {
