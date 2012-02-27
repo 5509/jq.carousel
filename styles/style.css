@@ -1,36 +1,13 @@
 @charset "utf-8";
 @import url(normalize.css);
 @import url(fonts.css);
-@import url(http://fonts.googleapis.com/css?family=Numans,Droid+Sans);
 .cont {
   margin: 0 auto;
   padding: 0 10px;
-  width: 800px;
-}
-
-h1 {
-  font-family: 'Numans', sans-serif;
-}
-
-h2,
-h3,
-p {
-  font-family: 'Droid Sans', sans-serif;
-}
-
-h1,
-.description,
-h3,
-pre {
-  margin-right: auto;
-  margin-left: auto;
-  width: 600px;
+  width: 640px;
 }
 
 h2 {
-  margin-right: auto;
-  margin-left: auto;
-  width: 600px;
   padding-top: 20px;
 }
 
@@ -76,16 +53,14 @@ h2 {
 }
 
 #carousel_2,
-#carousel_5,
-#carousel_6 {
+#carousel_5 {
   margin: 0 auto;
   width: 600px;
   height: 140px;
   overflow: hidden;
 }
 #carousel_2 .carousel_box,
-#carousel_5 .carousel_box,
-#carousel_6 .carousel_box {
+#carousel_5 .carousel_box {
   width: 600px;
   height: 140px;
   color: #fff;
@@ -95,28 +70,22 @@ h2 {
   font-size: 123%;
 }
 #carousel_2 .carousel_box.second,
-#carousel_5 .carousel_box.second,
-#carousel_6 .carousel_box.second {
+#carousel_5 .carousel_box.second {
   background: #666;
 }
 #carousel_2 .carousel_box.third,
-#carousel_5 .carousel_box.third,
-#carousel_6 .carousel_box.third {
+#carousel_5 .carousel_box.third {
   background: #999;
 }
 
-#carousel_3,
-#carousel_7,
-#carousel_8 {
+#carousel_3 {
   margin: 0 auto;
   width: 600px;
   height: 150px;
   background: #efefef;
   overflow: hidden;
 }
-#carousel_3 .carousel_box,
-#carousel_7 .carousel_box,
-#carousel_8 .carousel_box {
+#carousel_3 .carousel_box {
   border: solid #fff 5px;
   width: 190px;
   height: 140px;
