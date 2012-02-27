@@ -31,18 +31,16 @@
 		</p>
 	</div>
 	<h3>source code</h3>
-	<pre>(function() {
-  var $carousel = $('#carousel_1').carousel();
+	<pre>var $carousel = $('#carousel_1').carousel();
   
-  $('#carousel_1_prev').on('click', function(ev) {
-    ev.preventDefault();
-    $carousel.carouselPrev();
-  });
-  $('#carousel_1_next').on('click', function(ev) {
-    ev.preventDefault();
-    $carousel.carouselNext();
-  });
-}());</pre>
+$('#carousel_1_prev').on('click', function(ev) {
+  ev.preventDefault();
+  $carousel.carouselPrev();
+});
+$('#carousel_1_next').on('click', function(ev) {
+  ev.preventDefault();
+  $carousel.carouselNext();
+});</pre>
 
 	<h2>single view carousel with indicator and custom start</h2>
 	<div class="carousel">
@@ -57,15 +55,12 @@
 		</p>
 	</div>
 	<h3>source code</h3>
-	<pre>(function() {
-  var $carousel = $('#carousel_2').carousel({
-      start: 2, // start setting
-      indicator: true // indicator setting
-   });
+	<pre>var $carousel = $('#carousel_2').carousel({
+  start: 2, // start setting
+  indicator: true // indicator setting
+});
 
-   // ...
-
-}());</pre>
+// ...</pre>
 
 	<h2>group with indicator</h2>
 	<div class="carousel">
@@ -85,15 +80,12 @@
 		</p>
 	</div>
 	<h3>source code</h3>
-	<pre>(function() {
-  var $carousel = $('#carousel_3').carousel({
-      group: 3, // group setting
-      indicator: true
-    });
+	<pre>var $carousel = $('#carousel_3').carousel({
+  group: 3, // group setting
+  indicator: true
+});
 
-  // ...
-
-}());</pre>
+// ...</pre>
 
 	<h2>reset and refresh carousel, and binding event</h2>
 	<div class="carousel">
@@ -107,31 +99,29 @@
 		</p
 	</div>
 	<h3>source code</h3>
-	<pre>(function() {
-  var $carousel = $('#carousel_4').carousel({
-      group: 4,
-      indicator: true
-    }),
-    $prev = $('#carousel_4_prev'),
-    $next = $('#carousel_4_next'),
-    num = 1;
+	<pre>var $carousel = $('#carousel_4').carousel({
+    group: 4,
+    indicator: true
+  }),
+  $prev = $('#carousel_4_prev'),
+  $next = $('#carousel_4_next'),
+  num = 1;
 
-  $('#carousel_4_add').on('click', function(ev) {
-    $carousel.carouselReset();
-    $carousel.append('&lt;div class="carousel_box"&gt;' + (++num) + '&lt;/div&gt;');
-    $carousel.carouselRefresh();
-  });
+$('#carousel_4_add').on('click', function(ev) {
+  $carousel.carouselReset();
+  $carousel.append('&lt;div class="carousel_box"&gt;' + (++num) + '&lt;/div&gt;');
+  $carousel.carouselRefresh();
+});
 
-  // ...
+// ...
 
-  $carousel.bind('Carousel.refresh', function() {
-    if ( !$carousel.carouselGetMoveState() ) {
-      return;
-    }
-    $prev.prop('disabled', '');
-    $next.prop('disabled', '');
-  });
-}());</pre>
+$carousel.bind('Carousel.refresh', function() {
+  if ( !$carousel.carouselGetMoveState() ) {
+    return;
+  }
+  $prev.prop('disabled', '');
+  $next.prop('disabled', '');
+});</pre>
 
 	<h2>Other options and events</h2>
 	<div class="carousel">
@@ -146,24 +136,22 @@
 		</p>
 	</div>
 	<h3>source code</h3>
-	<pre>(function() {
-  var $carousel = $('#carousel_5').carousel({
-    indicator: true,
-    easing: 'linear', // easing
-    duration: 0.5 // move duration
-  });
+	<pre>var $carousel = $('#carousel_5').carousel({
+  indicator: true,
+  easing: 'linear', // easing
+  duration: 0.5 // move duration
+});
 
-  // ...
+// ...
 
-  $carousel.bind({
-    'Carousel.next': function() {
-      alert('moved to next');
-    },
-    'Carousel.prev': function() {
-      alert('moved to prev');
-    }
-  });
-}());</pre>
+$carousel.bind({
+  'Carousel.next': function() {
+    alert('moved to next');
+  },
+  'Carousel.prev': function() {
+    alert('moved to prev');
+  }
+});</pre>
 
 	<h2>single view with killed looping</h2>
 	<div class="carousel">
@@ -178,40 +166,40 @@
 		</p>
 	</div>
 	<pre>var $carousel = $('#carousel_6').carousel({
-      loop: false,
-      indicator: true
-    }),
-    $prev = $('#carousel_6_prev'),
-    $next = $('#carousel_6_next'),
-    set_state = function() {
-      var state = $carousel.carouselGetMoveState();
-      switch ( state ) {
-      case 'min':
-        $prev.prop('disabled', 'disabled');
-        break;
-      case 'max':
-        $next.prop('disabled', 'disabled');
-        break;
-      case true:
-        $prev.prop('disabled', '');
-        $next.prop('disabled', '');
-        break;
-      default:
-        $prev.prop('disabled', 'disabled');
-        $next.prop('disabled', 'disabled');
-      }
-    };
-
-  // ...
-
-  $carousel.bind({
-    'Carousel.next': function() {
-      set_state();
-    },
-    'Carousel.prev': function() {
-      set_state();
+    loop: false,
+    indicator: true
+  }),
+  $prev = $('#carousel_6_prev'),
+  $next = $('#carousel_6_next'),
+  set_state = function() {
+    var state = $carousel.carouselGetMoveState();
+    switch ( state ) {
+    case 'min':
+      $prev.prop('disabled', 'disabled');
+      break;
+    case 'max':
+      $next.prop('disabled', 'disabled');
+      break;
+    case true:
+      $prev.prop('disabled', '');
+      $next.prop('disabled', '');
+      break;
+    default:
+      $prev.prop('disabled', 'disabled');
+      $next.prop('disabled', 'disabled');
     }
-  });</pre>
+  };
+
+// ...
+
+$carousel.bind({
+  'Carousel.next': function() {
+    set_state();
+  },
+  'Carousel.prev': function() {
+    set_state();
+  }
+});</pre>
 
 	<h2>group with killed looping</h2>
 	<div class="carousel">
@@ -255,29 +243,26 @@
 			<input type="button" id="carousel_8_next" value="next">
 		</p>
 	</div>
-	<pre>(function() {
-  var $carousel = $('#carousel_8').carousel({
-      group: 3,
-      indicator: true
-    }),
-    $select = $('#carousel_8_select'),
-    // ...
-
+	<pre>var $carousel = $('#carousel_8').carousel({
+    group: 3,
+    indicator: true
+  }),
+  $select = $('#carousel_8_select'),
   // ...
 
-  $select.on('change', function() {
-    var val = this.value,
-      group = val / 200;
+// ...
 
-    // if carousel width is changed?
-    $carousel.css('width', val);
-    $carousel.carouselReset({
-      group: group
-    });
-    $carousel.carouselRefresh();
+$select.on('change', function() {
+  var val = this.value,
+    group = val / 200;
+
+  // if carousel width is changed?
+  $carousel.css('width', val);
+  $carousel.carouselReset({
+    group: group
   });
-}());</pre>
-
+  $carousel.carouselRefresh();
+});</pre>
 
 </div>
 
