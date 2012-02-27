@@ -270,9 +270,8 @@
       group = val / 200;
 
     // if carousel width is changed?
-    $carousel.carouselReset();
     $carousel.css('width', val);
-    $carousel.carouselChangeConf({
+    $carousel.carouselReset({
       group: group
     });
     $carousel.carouselRefresh();
@@ -500,9 +499,8 @@
 		var val = this.value,
 			group = val / 200;
 
-		$carousel.carouselReset();
 		$carousel.css('width', val);
-		$carousel.carouselChangeConf({
+		$carousel.carouselReset({
 			group: group
 		});
 		$carousel.carouselRefresh();

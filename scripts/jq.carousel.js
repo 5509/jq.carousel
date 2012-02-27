@@ -2,13 +2,13 @@
  * jq.carousel
  * Simple and customizable carousel
  *
- * @version      1.0
+ * @version      1.1
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-27 23:48
+ * 2012-02-28 01:29
  */
 ;(function($, undefined) {
 
@@ -414,11 +414,6 @@
       return self._moveState();
     },
 
-    changeConf: function(conf) {
-      var self = this;
-      self.conf = $.extend(self.conf, conf);
-    },
-
     prev: function() {
       var self = this;
       self._toPrev();
@@ -433,12 +428,15 @@
       return self.$elem;
     },
 
-    reset: function() {
+    reset: function(conf) {
       var self = this;
       self.$elem
         .empty()
         .append(self.$items_original);
 
+      if ( conf ) {
+        self.conf = $.extend(self.conf, conf);
+      }
       self.$elem.trigger('Carousel.reset');
       return self.$elem;
     },
