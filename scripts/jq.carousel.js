@@ -2,13 +2,13 @@
  * jq.carousel
  * Simple and customizable carousel
  *
- * @version      0.92
+ * @version      1.0
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-27 01:40
+ * 2012-02-27 23:48
  */
 ;(function($, undefined) {
 
@@ -36,10 +36,6 @@
       self.$elem = parent;
       self.$carousel_wrap = $('<div></div>');
 
-      self.view_width = parent[0].offsetWidth;
-      self.total_width = 0;
-      self.current = self.conf.start;
-
       self._build();
       self._setIndicator();
       self._eventify();
@@ -51,6 +47,10 @@
       var self = this,
         start_pos = 0,
         box_total_width = 0;
+
+      self.view_width = self.$elem[0].offsetWidth;
+      self.total_width = 0;
+      self.current = self.conf.start;
 
       self.$items = self.$elem.find('.carousel_box');
       self.$items_original = self.$items.clone();
@@ -412,6 +412,11 @@
     getMoveState: function() {
       var self = this;
       return self._moveState();
+    },
+
+    changeConf: function(conf) {
+      var self = this;
+      self.conf = $.extend(self.conf, conf);
     },
 
     prev: function() {

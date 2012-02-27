@@ -4,11 +4,20 @@
 .cont {
   margin: 0 auto;
   padding: 0 10px;
-  width: 640px;
+  width: 800px;
 }
 
 h2 {
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
   padding-top: 20px;
+}
+
+h3, pre {
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
 }
 
 .carousel .carousel_indicator {
@@ -83,7 +92,8 @@ h2 {
 }
 
 #carousel_3,
-#carousel_7 {
+#carousel_7,
+#carousel_8 {
   margin: 0 auto;
   width: 600px;
   height: 150px;
@@ -91,7 +101,8 @@ h2 {
   overflow: hidden;
 }
 #carousel_3 .carousel_box,
-#carousel_7 .carousel_box {
+#carousel_7 .carousel_box,
+#carousel_8 .carousel_box {
   border: solid #fff 5px;
   width: 190px;
   height: 140px;

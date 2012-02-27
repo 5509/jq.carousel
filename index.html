@@ -231,6 +231,55 @@
 		</p>
 	</div>
 
+	<h2>variable carousel with using changeConf()</h2>
+	<div class="carousel">
+		<div id="carousel_8" class="carousel_inner">
+			<div class="carousel_box">1</div>
+			<div class="carousel_box">2</div>
+			<div class="carousel_box">3</div>
+			<div class="carousel_box">4</div>
+			<div class="carousel_box">5</div>
+			<div class="carousel_box">6</div>
+			<div class="carousel_box">7</div>
+			<div class="carousel_box">8</div>
+		</div>
+		<p class="btns">
+			change carousel width: 
+			<select id="carousel_8_select">
+				<option value="600">600</option>
+				<option value="800">800</option>
+				<option value="400">400</option>
+				<option value="200">200</option>
+			</select>
+			<input type="button" id="carousel_8_prev" value="prev">
+			<input type="button" id="carousel_8_next" value="next">
+		</p>
+	</div>
+	<pre>(function() {
+  var $carousel = $('#carousel_8').carousel({
+      group: 3,
+      indicator: true
+    }),
+    $select = $('#carousel_8_select'),
+    // ...
+
+  // ...
+
+  $select.on('change', function() {
+    var val = this.value,
+      group = val / 200;
+
+    // if carousel width is changed?
+    $carousel.carouselReset();
+    $carousel.css('width', val);
+    $carousel.carouselChangeConf({
+      group: group
+    });
+    $carousel.carouselRefresh();
+  });
+}());</pre>
+
+
 </div>
 
 <script src="scripts/lib/jquery-1.7.1.min.js"></script>
@@ -430,7 +479,34 @@
 			set_state();
 		}
 	});
+}());
 
+(function() {
+	var $carousel = $('#carousel_8').carousel({
+			group: 3,
+			indicator: true
+		}),
+		$select = $('#carousel_8_select'),
+		$prev = $('#carousel_8_prev'),
+		$next = $('#carousel_8_next');
+
+	$prev.on('click', function() {
+		$carousel.carouselPrev();
+	});
+	$next.on('click', function() {
+		$carousel.carouselNext();
+	});
+	$select.on('change', function() {
+		var val = this.value,
+			group = val / 200;
+
+		$carousel.carouselReset();
+		$carousel.css('width', val);
+		$carousel.carouselChangeConf({
+			group: group
+		});
+		$carousel.carouselRefresh();
+	});
 }());
 
 </script>

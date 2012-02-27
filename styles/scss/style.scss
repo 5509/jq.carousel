@@ -3,14 +3,24 @@
 @import url(normalize.css);
 @import url(fonts.css);
 
+@mixin preset {
+	margin-right: auto;
+	margin-left: auto;
+	width: 600px;
+}
+
 .cont {
 	margin: 0 auto;
 	padding: 0 10px;
-	width: 640px;
+	width: 800px;
 }
 
 h2 {
+	@include preset;
 	padding-top: 20px;
+}
+h3, pre {
+	@include preset;
 }
 
 .carousel {
@@ -87,7 +97,8 @@ h2 {
 }
 
 #carousel_3,
-#carousel_7 {
+#carousel_7,
+#carousel_8 {
 	margin: 0 auto;
 	width: 600px;
 	height: 150px;
