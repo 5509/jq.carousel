@@ -2,13 +2,13 @@
  * jq.carousel
  * Simple and customizable carousel
  *
- * @version      2.0
+ * @version      2.1
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-28 15:26
+ * 2012-02-28 15:33
  */
 ;(function($, undefined) {
 
@@ -405,6 +405,9 @@
       var self = this;
       if ( typeof self[api] !== 'function' ) {
         throw api + ' does not exist of Carousel methods.';
+      } else
+      if ( /^_/.test(api) && typeof self[api] === 'function' ) {
+        throw 'Method begins with an underscore are not exposed.';
       }
       return self[api](arguments);
     },
