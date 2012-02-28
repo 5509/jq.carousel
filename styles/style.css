@@ -2,6 +2,11 @@
 @import url(normalize.css);
 @import url(fonts.css);
 @import url(http://fonts.googleapis.com/css?family=Numans,Droid+Sans);
+body {
+  background-image: url(../images/bg_glow.png), url(../images/dots.png);
+  background-repeat: repeat, repeat-x;
+}
+
 .cont {
   margin: 0 auto;
   padding: 0 10px;
@@ -34,6 +39,126 @@ h2 {
   padding-top: 20px;
 }
 
+header {
+  margin: 0 auto;
+  padding-bottom: 40px;
+  width: 600px;
+}
+header .download {
+  float: right;
+  position: relative;
+  top: -70px;
+  font-size: 14px;
+}
+header .download a {
+  border: solid #000 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  padding: 7px 20px;
+  color: #fff;
+  text-decoration: none;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.4), 1px 1px 2px rgba(255, 255, 255, 0.1) inset, -1px -1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.4), 1px 1px 2px rgba(255, 255, 255, 0.1) inset, -1px -1px 2px rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 0 2px rgba(0, 0, 0, 0.4), 1px 1px 2px rgba(255, 255, 255, 0.1) inset, -1px -1px 2px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 0 2px rgba(0, 0, 0, 0.4), 1px 1px 2px rgba(255, 255, 255, 0.1) inset, -1px -1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4), 1px 1px 2px rgba(255, 255, 255, 0.1) inset, -1px -1px 2px rgba(0, 0, 0, 0.2);
+  background: #45484d;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(69, 72, 77, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(69, 72, 77, 0.9)), color-stop(100%, rgba(0, 0, 0, 0.9)));
+  background: -webkit-linear-gradient(top, rgba(69, 72, 77, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+  background: -o-linear-gradient(top, rgba(69, 72, 77, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+  background: -ms-linear-gradient(top, rgba(69, 72, 77, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+  background: linear-gradient(top, rgba(69, 72, 77, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+}
+header nav {
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  background: rgba(37, 37, 37, 0.9);
+  line-height: 40px;
+}
+header nav ul {
+  margin: 0 auto;
+  padding-left: 0;
+  width: 600px;
+}
+header nav ul li {
+  display: inline-block;
+}
+header nav ul li a {
+  margin: 0 16px 0 0;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+}
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+section {
+  border-bottom: dashed rgba(0, 0, 0, 0.3) 1px;
+  padding-bottom: 40px;
+}
+section:last-child {
+  border: none;
+}
+section h3 {
+  border-bottom: dotted rgba(0, 0, 0, 0.7) 1px;
+  padding: 10px 0;
+}
+section p {
+  margin: 0 auto;
+  width: 600px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+section p + p {
+  padding-top: 10px;
+}
+section table {
+  margin: 30px auto 0;
+  border: solid #000 1px;
+  border-bottom: none;
+  border-left: none;
+  border-collaplse: seperate;
+  width: 700px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+section table thead {
+  background: rgba(37, 37, 37, 0.8);
+  color: #efefef;
+}
+section table th, section table td {
+  border: solid #000 1px;
+  border-top: none;
+  border-right: none;
+  padding: 10px 15px;
+  text-align: left;
+}
+section ul {
+  margin: 0 auto;
+  padding: 10px 20px;
+  width: 600px;
+  font-size: 16px;
+}
+section ul li {
+  line-height: 1.6;
+}
+section ul li a {
+  color: #000;
+}
+section ul li a:hover {
+  text-decoration: none;
+}
+
 .carousel .carousel_indicator {
   padding-top: 5px;
   text-align: center;
@@ -51,6 +176,7 @@ h2 {
   background: #000;
 }
 .carousel .btns {
+  padding-top: 5px;
   text-align: center;
 }
 

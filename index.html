@@ -10,28 +10,226 @@
 <a href="https://github.com/5509/jq.carousel"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
 <div class="cont">
 
-	<h1>jq.carousel</h1>
-	<p class="description">Simple and customizable carousel</p>
+	<header>
+		<h1>jq.carousel</h1>
+		<p class="description">Simple and customizable carousel</p>
+		<p class="download"><a href="https://github.com/5509/jq.carousel/zipball/master">Download</a></p>
+		<nav>
+			<ul>
+				<li><a href="#overview">overview</a></li>
+				<li><a href="#usage">usage</a></li>
+				<li><a href="#sample">sample</a></li>
+				<li><a href="https://github.com/5509/jq.carousel/zipball/master">download</a></li>
+				<li><a href="#about">about</a></li>
+			</ul>
+		</nav>
+	</header>
 
-	<h2>basic carousel</h2>
-	<div class="carousel">
-		<div id="carousel_1" class="carousel_inner">
-			<div class="carousel_box">1</div>
-			<div class="carousel_box">2</div>
-			<div class="carousel_box">3</div>
-			<div class="carousel_box">4</div>
-			<div class="carousel_box">5</div>
-			<div class="carousel_box">6</div>
-			<div class="carousel_box">7</div>
-			<div class="carousel_box">8</div>
+	<section id="overview">
+		<h2>Simple and Customizable</h2>
+		<p>"jq.carousel" is a jQuery plug-ins you can implement a simple carousel and Customizable.</p>
+		<p>Because they are designed to be flexible in various situations, can also be embedded in a responsive site for example.</p>
+
+		<h2>Looping</h2>
+		<p>"jq.carousel" is by default have the ability to loop, loop function can also be turned off in options.</p>
+
+		<h2>Indicator</h2>
+		<p>Because the default implementations of the indicator are here to inform the user, also perfectly navigation. Because the style indicator in the CSS, you can look you like.</p>
+
+		<h2>Events</h2>
+		<p>You can use an event that has been prepared in advance, the timing of any processing.</p>
+	</section>
+
+	<section id="usage">
+		<h2>Download</h2>
+		<p>You can download the source code from Github.</p>
+		<ul>
+			<li><a href="https://github.com/5509/jq.carousel/zipball/master">Download jq.carousel.js</a></li>
+		</ul>
+
+		<h2>Implementation</h2>
+		<p>Reading at any point and jq.carousel.js jQuery, and then run after it.</p>
+		<pre>&lt;script src=&quot;scripts/lib/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/jq.carousel.js&quot;&gt;&lt;/script&gt;</pre>
+
+		<h2>How to use</h2>
+		<p>If you want to use the simplest is as follows. Indicator in this case will not be displayed. In addition, since the button to send a page of the carousel will not be discharged, and then implemented using the API.</p>
+		<h3>HTML</h3>
+		<pre>&lt;div class=&quot;carousel&quot;&gt;
+  &lt;div id=&quot;carousel&quot; class=&quot;carousel_inner&quot;&gt;
+    &lt;div class=&quot;carousel_box&quot;&gt;1&lt;/div&gt;
+    &lt;div class=&quot;carousel_box&quot;&gt;2&lt;/div&gt;
+    &lt;div class=&quot;carousel_box&quot;&gt;3&lt;/div&gt;
+    &lt;div class=&quot;carousel_box&quot;&gt;4&lt;/div&gt;
+    &lt;div class=&quot;carousel_box&quot;&gt;5&lt;/div&gt;
+    &lt;div class=&quot;carousel_box&quot;&gt;6&lt;/div&gt;
+    &lt;div class=&quot;carousel_box&quot;&gt;7&lt;/div&gt;
+    &lt;div class=&quot;carousel_box&quot;&gt;8&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;btns&quot;&gt;
+    &lt;input type=&quot;button&quot; id=&quot;carousel_prev&quot; value=&quot;prev&quot;&gt;
+    &lt;input type=&quot;button&quot; id=&quot;carousel_next&quot; value=&quot;next&quot;&gt;
+  &lt;/p&gt;
+&lt;/div&gt;</pre>
+		<h3>CSS</h3>
+		<pre>#carousel_1 {
+  margin: 0 auto;
+  width: 600px;
+  height: 150px;
+  background: #efefef;
+  overflow: hidden;
+}
+#carousel_1 .carousel_box {
+  float: left;
+  border: solid #fff 5px;
+  width: 140px;
+  height: 140px;
+  color: #fff;
+  background: #252525;
+  line-height: 140px;
+  text-align: center;
+  font-size: 123%;
+}</pre>
+		<h3>JavaScript</h3>
+		<pre>var $carousel = $('#carousel').carousel();
+  
+$('#carousel_prev').on('click', function(ev) {
+  $carousel.carousel('prev');
+});
+$('#carousel_next').on('click', function(ev) {
+  $carousel.carousel('next');
+});</pre>
+
+		<h2>Options</h2>
+		<p>You can turn off the loop If you specify the option when you run, to use custom easing function. For descriptions of the options available, please refer to the following table.</p>
+		<table summary="Options">
+			<thead>
+				<tr>
+					<th>Key</th>
+					<td>Commentary (Contents of the () is the default value)</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>loop</th>
+					<td>(true) You can turn off the loop If you specify false.</td>
+				</tr>
+				<tr>
+					<th>easing</th>
+					<td>(swing) custom easing function will be available when you use a plug-in, such as easing.</td>
+				</tr>
+				<tr>
+					<th>start</th>
+					<td>(1) You can specify the initial display of the carousel.</td>
+				</tr>
+				<tr>
+					<th>group</th>
+					<td>(1) You can specify the box to group the box to move at a time. When 3 For example, if one becomes a group of three in the box, there is a box total of eight, but the remainder is the last one, that part will be displayed in the blank.</td>
+				</tr>
+				<tr>
+					<th>duration</th>
+					<td>(0.2) Specifies the number of seconds the time it takes to move.</td>
+				</tr>
+				<tr>
+					<th>indicator</th>
+					<td>(false) If you want to use the indicator, you specify true. Indicator will be append after the element specified carousel.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2>APIs</h2>
+		<p>API, such as advance-return the carousel can be accessed by specifying the name of the API in the first argument method all carousel. API available, please refer to the following table.</p>
+		<table summary="APIs">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<td>Commentary</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>indicator</th>
+					<td>Returns a jQuery object that contains the HTML for the indicator. When set to true if an option is specified for the spit out immediately after the carousel element, you want to place in your favorite position please use this API.</td>
+				</tr>
+				<tr>
+					<th>getCurrent</th>
+					<td>Returns the numeric You are here carousel is displaying. When you use the API indicator will change the position of the indicator used in combination.</td>
+				</tr>
+				<tr>
+					<th>getMoveState</th>
+					<td>Returns false if there are fewer than the number of box view of the carousel that is displayed in the carousel, otherwise, it returns true. As a special case, the loop is off, if you are on page 1 to page if you are min, the last returns the max.</td>
+				</tr>
+				<tr>
+					<th>prev</th>
+					<td>Back one page of the carousel.</td>
+				</tr>
+				<tr>
+					<th>next</th>
+					<td>Forward one page of the carousel.</td>
+				</tr>
+				<tr>
+					<th>reset</th>
+					<td>Revert to the state prior to the execution of the elements that you specify when you run the carousel. This must be done before you run, "refresh" API not only simply to initialize.<br>
+					In addition, you can re-specify the option to run the second argument.</td>
+				</tr>
+				<tr>
+					<th>refresh</th>
+					<td>Redraw the carousel again. run after the "reset" API.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2>Events</h2>
+		<p>If you use an event, you can do any processing, such as when when the carousel was moved, was redrawn.</p>
+		<table summary="Events">
+			<thead>
+				<tr>
+					<th>Events</th>
+					<td>Commentary</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Carousel.next</th>
+					<td>The carousel when the ignition has been moved to the next page.</td>
+				</tr>
+				<tr>
+					<th>Carousel.prev</th>
+					<td>The carousel when the ignition has been moved to the prev page.</td>
+				</tr>
+				<tr>
+					<th>Carousel.reset</th>
+					<td>The carousel when the ignition has been reset.</td>
+				</tr>
+				<tr>
+					<th>Carousel.refresh</th>
+					<td>The carousel when the ignition has been refresh.</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</section>
+
+	<section id="sample">
+		<h2>basic carousel</h2>
+		<div class="carousel">
+			<div id="carousel_1" class="carousel_inner">
+				<div class="carousel_box">1</div>
+				<div class="carousel_box">2</div>
+				<div class="carousel_box">3</div>
+				<div class="carousel_box">4</div>
+				<div class="carousel_box">5</div>
+				<div class="carousel_box">6</div>
+				<div class="carousel_box">7</div>
+				<div class="carousel_box">8</div>
+			</div>
+			<p class="btns">
+				<input type="button" id="carousel_1_prev" value="prev">
+				<input type="button" id="carousel_1_next" value="next">
+			</p>
 		</div>
-		<p class="btns">
-			<input type="button" id="carousel_1_prev" value="prev">
-			<input type="button" id="carousel_1_next" value="next">
-		</p>
-	</div>
-	<h3>source code</h3>
-	<pre>var $carousel = $('#carousel_1').carousel();
+		<h3>source code</h3>
+		<pre>var $carousel = $('#carousel_1').carousel();
   
 $('#carousel_1_prev').on('click', function(ev) {
   ev.preventDefault();
@@ -42,64 +240,64 @@ $('#carousel_1_next').on('click', function(ev) {
   $carousel.carousel('next');
 });</pre>
 
-	<h2>single view carousel with indicator and custom start</h2>
-	<div class="carousel">
-		<div id="carousel_2" class="carousel_inner">
-			<div class="carousel_box first">1</div>
-			<div class="carousel_box second">2</div>
-			<div class="carousel_box third">3</div>
+		<h2>single view carousel with indicator and custom start</h2>
+		<div class="carousel">
+			<div id="carousel_2" class="carousel_inner">
+				<div class="carousel_box first">1</div>
+				<div class="carousel_box second">2</div>
+				<div class="carousel_box third">3</div>
+			</div>
+			<p class="btns">
+				<input type="button" id="carousel_2_prev" value="prev">
+				<input type="button" id="carousel_2_next" value="next">
+			</p>
 		</div>
-		<p class="btns">
-			<input type="button" id="carousel_2_prev" value="prev">
-			<input type="button" id="carousel_2_next" value="next">
-		</p>
-	</div>
-	<h3>source code</h3>
-	<pre>var $carousel = $('#carousel_2').carousel({
+		<h3>source code</h3>
+		<pre>var $carousel = $('#carousel_2').carousel({
   start: 2, // start setting
   indicator: true // indicator setting
 });
 
 // ...</pre>
 
-	<h2>group with indicator</h2>
-	<div class="carousel">
-		<div id="carousel_3" class="carousel_inner">
-			<div class="carousel_box">1</div>
-			<div class="carousel_box">2</div>
-			<div class="carousel_box">3</div>
-			<div class="carousel_box">4</div>
-			<div class="carousel_box">5</div>
-			<div class="carousel_box">6</div>
-			<div class="carousel_box">7</div>
-			<div class="carousel_box">8</div>
+		<h2>group with indicator</h2>
+		<div class="carousel">
+			<div id="carousel_3" class="carousel_inner">
+				<div class="carousel_box">1</div>
+				<div class="carousel_box">2</div>
+				<div class="carousel_box">3</div>
+				<div class="carousel_box">4</div>
+				<div class="carousel_box">5</div>
+				<div class="carousel_box">6</div>
+				<div class="carousel_box">7</div>
+				<div class="carousel_box">8</div>
+			</div>
+			<p class="btns">
+				<input type="button" id="carousel_3_prev" value="prev">
+				<input type="button" id="carousel_3_next" value="next">
+			</p>
 		</div>
-		<p class="btns">
-			<input type="button" id="carousel_3_prev" value="prev">
-			<input type="button" id="carousel_3_next" value="next">
-		</p>
-	</div>
-	<h3>source code</h3>
-	<pre>var $carousel = $('#carousel_3').carousel({
+		<h3>source code</h3>
+		<pre>var $carousel = $('#carousel_3').carousel({
   group: 3, // group setting
   indicator: true
 });
 
 // ...</pre>
 
-	<h2>reset and refresh carousel, and binding event</h2>
-	<div class="carousel">
-		<div id="carousel_4" class="carousel_inner">
-			<div class="carousel_box">1</div>
+		<h2>reset and refresh carousel, and binding event</h2>
+		<div class="carousel">
+			<div id="carousel_4" class="carousel_inner">
+				<div class="carousel_box">1</div>
+			</div>
+			<p class="btns">
+				<input type="button" id="carousel_4_add" value="add">
+				<input type="button" id="carousel_4_prev" value="prev" disabled>
+				<input type="button" id="carousel_4_next" value="next" disabled>
+			</p
 		</div>
-		<p class="btns">
-			<input type="button" id="carousel_4_add" value="add">
-			<input type="button" id="carousel_4_prev" value="prev" disabled>
-			<input type="button" id="carousel_4_next" value="next" disabled>
-		</p
-	</div>
-	<h3>source code</h3>
-	<pre>var $carousel = $('#carousel_4').carousel({
+		<h3>source code</h3>
+		<pre>var $carousel = $('#carousel_4').carousel({
     group: 4,
     indicator: true
   }),
@@ -123,20 +321,20 @@ $carousel.bind('Carousel.refresh', function() {
   $next.prop('disabled', '');
 });</pre>
 
-	<h2>Other options and events</h2>
-	<div class="carousel">
-		<div id="carousel_5" class="carousel_inner">
-			<div class="carousel_box first">1</div>
-			<div class="carousel_box second">2</div>
-			<div class="carousel_box third">3</div>
+		<h2>Other options and events</h2>
+		<div class="carousel">
+			<div id="carousel_5" class="carousel_inner">
+				<div class="carousel_box first">1</div>
+				<div class="carousel_box second">2</div>
+				<div class="carousel_box third">3</div>
+			</div>
+			<p class="btns">
+				<input type="button" id="carousel_5_prev" value="prev">
+				<input type="button" id="carousel_5_next" value="next">
+			</p>
 		</div>
-		<p class="btns">
-			<input type="button" id="carousel_5_prev" value="prev">
-			<input type="button" id="carousel_5_next" value="next">
-		</p>
-	</div>
-	<h3>source code</h3>
-	<pre>var $carousel = $('#carousel_5').carousel({
+		<h3>source code</h3>
+		<pre>var $carousel = $('#carousel_5').carousel({
   indicator: true,
   easing: 'linear', // easing
   duration: 0.5 // move duration
@@ -153,19 +351,19 @@ $carousel.bind({
   }
 });</pre>
 
-	<h2>single view with killed looping</h2>
-	<div class="carousel">
-		<div id="carousel_6" class="carousel_inner">
-			<div class="carousel_box first">1</div>
-			<div class="carousel_box second">2</div>
-			<div class="carousel_box third">3</div>
+		<h2>single view with killed looping</h2>
+		<div class="carousel">
+			<div id="carousel_6" class="carousel_inner">
+				<div class="carousel_box first">1</div>
+				<div class="carousel_box second">2</div>
+				<div class="carousel_box third">3</div>
+			</div>
+			<p class="btns">
+				<input type="button" id="carousel_6_prev" value="prev">
+				<input type="button" id="carousel_6_next" value="next">
+			</p>
 		</div>
-		<p class="btns">
-			<input type="button" id="carousel_6_prev" value="prev">
-			<input type="button" id="carousel_6_next" value="next">
-		</p>
-	</div>
-	<pre>var $carousel = $('#carousel_6').carousel({
+		<pre>var $carousel = $('#carousel_6').carousel({
     loop: false,
     indicator: true
   }),
@@ -203,49 +401,49 @@ $carousel.bind({
   }
 });</pre>
 
-	<h2>group with killed looping</h2>
-	<div class="carousel">
-		<div id="carousel_7" class="carousel_inner">
-			<div class="carousel_box">1</div>
-			<div class="carousel_box">2</div>
-			<div class="carousel_box">3</div>
-			<div class="carousel_box">4</div>
-			<div class="carousel_box">5</div>
-			<div class="carousel_box">6</div>
-			<div class="carousel_box">7</div>
-			<div class="carousel_box">8</div>
+		<h2>group with killed looping</h2>
+		<div class="carousel">
+			<div id="carousel_7" class="carousel_inner">
+				<div class="carousel_box">1</div>
+				<div class="carousel_box">2</div>
+				<div class="carousel_box">3</div>
+				<div class="carousel_box">4</div>
+				<div class="carousel_box">5</div>
+				<div class="carousel_box">6</div>
+				<div class="carousel_box">7</div>
+				<div class="carousel_box">8</div>
+			</div>
+			<p class="btns">
+				<input type="button" id="carousel_7_prev" value="prev">
+				<input type="button" id="carousel_7_next" value="next">
+			</p>
 		</div>
-		<p class="btns">
-			<input type="button" id="carousel_7_prev" value="prev">
-			<input type="button" id="carousel_7_next" value="next">
-		</p>
-	</div>
 
-	<h2>make carousel width variable with using reset(conf)</h2>
-	<div class="carousel">
-		<div id="carousel_8" class="carousel_inner">
-			<div class="carousel_box">1</div>
-			<div class="carousel_box">2</div>
-			<div class="carousel_box">3</div>
-			<div class="carousel_box">4</div>
-			<div class="carousel_box">5</div>
-			<div class="carousel_box">6</div>
-			<div class="carousel_box">7</div>
-			<div class="carousel_box">8</div>
+		<h2>make carousel width variable with using reset(conf)</h2>
+		<div class="carousel">
+			<div id="carousel_8" class="carousel_inner">
+				<div class="carousel_box">1</div>
+				<div class="carousel_box">2</div>
+				<div class="carousel_box">3</div>
+				<div class="carousel_box">4</div>
+				<div class="carousel_box">5</div>
+				<div class="carousel_box">6</div>
+				<div class="carousel_box">7</div>
+				<div class="carousel_box">8</div>
+			</div>
+			<p class="btns">
+				change carousel width: 
+				<select id="carousel_8_select">
+					<option value="600">600</option>
+					<option value="800">800</option>
+					<option value="400">400</option>
+					<option value="200">200</option>
+				</select>
+				<input type="button" id="carousel_8_prev" value="prev">
+				<input type="button" id="carousel_8_next" value="next">
+			</p>
 		</div>
-		<p class="btns">
-			change carousel width: 
-			<select id="carousel_8_select">
-				<option value="600">600</option>
-				<option value="800">800</option>
-				<option value="400">400</option>
-				<option value="200">200</option>
-			</select>
-			<input type="button" id="carousel_8_prev" value="prev">
-			<input type="button" id="carousel_8_next" value="next">
-		</p>
-	</div>
-	<pre>var $carousel = $('#carousel_8').carousel({
+		<pre>var $carousel = $('#carousel_8').carousel({
     group: 3,
     indicator: true
   }),
@@ -265,6 +463,29 @@ $select.on('change', function() {
   });
   $carousel.carousel('refresh');
 });</pre>
+
+	</section>
+
+	<section id="about">
+		<h2>Capable browsers</h2>
+		<ul>
+			<li>IE6+</li>
+			<li>and modern browsers</li>
+			<li>Mobile Safari</li>
+		</ul>
+
+		<h2>License</h2>
+		<p>The MIT License</p>
+
+		<h2>If you've found a bug, etc.</h2>
+		<p>Please pull request to fork a github repository, if possible. I might be able to correspond to the time when there is a difficult case and get written on issues, someone may be able to support.</p>
+		<p>Regards use at your own risk!</p>
+
+		<h3>Author</h3>
+		<p>5509 - <a href="http://5509.me/">http://5509.me</a>, <a href="http://twitter.com/5509">@5509</a></p>
+	</section>
+
+	<p>Thanks</p>
 
 </div>
 
