@@ -2,7 +2,7 @@
  * jq.carousel
  * Simple and customizable carousel
  *
- * @version      2.1
+ * @version      2.2
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
@@ -535,8 +535,6 @@
     }
   }
 
-  // method extend
-  jQuery.carousel = Carousel;
   // $.fn extend
   jQuery.fn.carousel = function(conf, arguments) {
     var $this = this, 
