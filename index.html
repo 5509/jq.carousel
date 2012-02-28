@@ -176,8 +176,10 @@ $carousel.bind({
     switch ( state ) {
     case 'min':
       $prev.prop('disabled', 'disabled');
+      $next.prop('disabled', '');
       break;
     case 'max':
+      $prev.prop('disabled', '');
       $next.prop('disabled', 'disabled');
       break;
     case true:
@@ -386,8 +388,10 @@ $select.on('change', function() {
 			switch ( state ) {
 			case 'min':
 				$prev.prop('disabled', 'disabled');
+				$next.prop('disabled', '');
 				break;
 			case 'max':
+				$prev.prop('disabled', '');
 				$next.prop('disabled', 'disabled');
 				break;
 			case true:
@@ -433,8 +437,10 @@ $select.on('change', function() {
 			switch ( state ) {
 			case 'min':
 				$prev.prop('disabled', 'disabled');
+				$next.prop('disabled', '');
 				break;
 			case 'max':
+				$prev.prop('disabled', '');
 				$next.prop('disabled', 'disabled');
 				break;
 			case true:
