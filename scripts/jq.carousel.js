@@ -2,13 +2,13 @@
  * jq.carousel
  * Simple and customizable carousel
  *
- * @version      2.2
+ * @version      2.3
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-28 15:33
+ * 2012-02-28 15:42
  */
 ;(function($, undefined) {
 
@@ -401,7 +401,7 @@
       }
     },
 
-    callAPI: function(api, arguments) {
+    _callAPI: function(api, arguments) {
       var self = this;
       if ( typeof self[api] !== 'function' ) {
         throw api + ' does not exist of Carousel methods.';
@@ -541,7 +541,7 @@
       carousel = this.data('carousel');
 
     if ( carousel ) {
-      return carousel.callAPI(conf, arguments);
+      return carousel._callAPI(conf, arguments);
     } else {
       carousel = Carousel($this, conf);
       $this.data('carousel', carousel);
