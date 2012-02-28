@@ -2,13 +2,13 @@
  * jq.carousel
  * Simple and customizable carousel
  *
- * @version      1.1
+ * @version      2.0
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-02-28 01:29
+ * 2012-02-28 15:26
  */
 ;(function($, undefined) {
 
@@ -136,18 +136,18 @@
     _eventify: function() {
       var self = this,
         conf = self.conf,
-        $indicator = undefined;
+        indicator = undefined;
 
       if ( !conf.indicator ) {
         return;
       }
-      $indicator = self.$indicator;
+      indicator = self.$indicator.data('indicator');
       self.$elem.bind({
         'Carousel.prev': function() {
-          $indicator.indicatorActive();
+          indicator.active();
         },
         'Carousel.next': function() {
-          $indicator.indicatorActive();
+          indicator.active();
         }
       });
     },
@@ -378,14 +378,15 @@
         indicator = Indicator(self, num),
         $indicator = $('<div class="carousel_indicator"></div>');
 
+      $indicator.data('indicator', indicator);
       $indicator.append(indicator.$elems);
-      extend_method($indicator, indicator);
 
       return $indicator;
     },
 
     _setIndicator: function(num) {
-      var self = this;
+      var self = this,
+        indicator = undefined;
       if ( !self.conf.indicator ) {
         return;
       }
@@ -393,10 +394,19 @@
         self.$indicator = self._getIndicator(num);
         self.$elem.after(self.$indicator);
       } else {
+        indicator = self.$indicator.data('indicator');
         self.$indicator.append(
-          self.$indicator.indicatorRefresh()
+          indicator.refresh()
         );
       }
+    },
+
+    callAPI: function(api, arguments) {
+      var self = this;
+      if ( typeof self[api] !== 'function' ) {
+        throw api + ' does not exist of Carousel methods.';
+      }
+      return self[api](arguments);
     },
 
     indicator: function(num) {
@@ -507,43 +517,6 @@
     }
   };
 
-  function extend_method(base, obj) {
-    var c = undefined,
-      namespace = to_first_letter_lower_case(obj.namespace),
-      method_name = undefined;
-    for ( c in obj ) {
-      if ( typeof obj[c] !== 'function'
-        || /(?:^_)|(?:^handleEvent$)|(?:^init$)/.test(c) ) {
-        continue;
-      }
-      method_name = namespace + to_first_letter_upper_case(c);
-      base[method_name] = (function() {
-        var p = c;
-        return function(arguments) {
-          return obj[p](arguments);
-        }
-      }());
-    }
-  }
-
-  function to_first_letter_upper_case(string) {
-    return string.replace(
-      /(^[a-z])/,
-      function($1) {
-        return $1.toUpperCase();
-      }
-    );
-  }
-
-  function to_first_letter_lower_case(string) {
-    return string.replace(
-      /(^[A-Z])/,
-      function($1) {
-        return $1.toLowerCase();
-      }
-    );
-  }
-
   function each(arr, func) {
     var i = 0,
         l = undefined;
@@ -562,11 +535,17 @@
   // method extend
   jQuery.carousel = Carousel;
   // $.fn extend
-  jQuery.fn.carousel = function(conf) {
-    var carousel = Carousel(this, conf);
+  jQuery.fn.carousel = function(conf, arguments) {
+    var $this = this, 
+      carousel = this.data('carousel');
 
-    extend_method(this, carousel);
-    return this;
+    if ( carousel ) {
+      return carousel.callAPI(conf, arguments);
+    } else {
+      carousel = Carousel($this, conf);
+      $this.data('carousel', carousel);
+      return $this;
+    }
   };
 
 }(jQuery));

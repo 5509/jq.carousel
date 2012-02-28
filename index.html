@@ -35,11 +35,11 @@
   
 $('#carousel_1_prev').on('click', function(ev) {
   ev.preventDefault();
-  $carousel.carouselPrev();
+  $carousel.carousel('prev');
 });
 $('#carousel_1_next').on('click', function(ev) {
   ev.preventDefault();
-  $carousel.carouselNext();
+  $carousel.carousel('next');
 });</pre>
 
 	<h2>single view carousel with indicator and custom start</h2>
@@ -108,15 +108,15 @@ $('#carousel_1_next').on('click', function(ev) {
   num = 1;
 
 $('#carousel_4_add').on('click', function(ev) {
-  $carousel.carouselReset();
+  $carousel.carousel('reset');
   $carousel.append('&lt;div class="carousel_box"&gt;' + (++num) + '&lt;/div&gt;');
-  $carousel.carouselRefresh();
+  $carousel.carousel('refresh');
 });
 
 // ...
 
 $carousel.bind('Carousel.refresh', function() {
-  if ( !$carousel.carouselGetMoveState() ) {
+  if ( !$carousel.carousel('getMoveState') ) {
     return;
   }
   $prev.prop('disabled', '');
@@ -172,7 +172,7 @@ $carousel.bind({
   $prev = $('#carousel_6_prev'),
   $next = $('#carousel_6_next'),
   set_state = function() {
-    var state = $carousel.carouselGetMoveState();
+    var state = $carousel.carousel('getMoveState');
     switch ( state ) {
     case 'min':
       $prev.prop('disabled', 'disabled');
@@ -258,10 +258,10 @@ $select.on('change', function() {
 
   // if carousel width is changed?
   $carousel.css('width', val);
-  $carousel.carouselReset({
+  $carousel.carousel('reset', {
     group: group
   });
-  $carousel.carouselRefresh();
+  $carousel.carousel('refresh');
 });</pre>
 
 </div>
@@ -275,11 +275,11 @@ $select.on('change', function() {
 
 	$('#carousel_1_prev').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselPrev();
+		$carousel.carousel('prev');
 	});
 	$('#carousel_1_next').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselNext();
+		$carousel.carousel('next');
 	});
 }());
 
@@ -291,11 +291,11 @@ $select.on('change', function() {
 
 	$('#carousel_2_prev').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselPrev();
+		$carousel.carousel('prev');
 	});
 	$('#carousel_2_next').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselNext();
+		$carousel.carousel('next');
 	});
 }());
 
@@ -307,11 +307,11 @@ $select.on('change', function() {
 
 	$('#carousel_3_prev').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselPrev();
+		$carousel.carousel('prev');
 	});
 	$('#carousel_3_next').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselNext();
+		$carousel.carousel('next');
 	});
 }());
 
@@ -325,21 +325,21 @@ $select.on('change', function() {
 		num = 1;
 
 	$('#carousel_4_add').on('click', function(ev) {
-		$carousel.carouselReset();
+		$carousel.carousel('reset');
 		$carousel.append('<div class="carousel_box">' + (++num) + '</div>');
-		$carousel.carouselRefresh();
+		$carousel.carousel('refresh');
 	});
 	$prev.on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselPrev();
+		$carousel.carousel('prev');
 	});
 	$next.on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselNext();
+		$carousel.carousel('next');
 	});
 
 	$carousel.bind('Carousel.refresh', function() {
-		if ( !$carousel.carouselGetMoveState() ) {
+		if ( !$carousel.carousel('getMoveState') ) {
 			return;
 		}
 		$prev.prop('disabled', '');
@@ -356,11 +356,11 @@ $select.on('change', function() {
 
 	$('#carousel_5_prev').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselPrev();
+		$carousel.carousel('prev');
 	});
 	$('#carousel_5_next').on('click', function(ev) {
 		ev.preventDefault();
-		$carousel.carouselNext();
+		$carousel.carousel('next');
 	});
 
 	$carousel.bind({
@@ -382,7 +382,7 @@ $select.on('change', function() {
 		$prev = $('#carousel_6_prev'),
 		$next = $('#carousel_6_next'),
 		set_state = function() {
-			var state = $carousel.carouselGetMoveState();
+			var state = $carousel.carousel('getMoveState');
 			switch ( state ) {
 			case 'min':
 				$prev.prop('disabled', 'disabled');
@@ -401,10 +401,10 @@ $select.on('change', function() {
 		};
 
 	$prev.on('click', function() {
-		$carousel.carouselPrev();
+		$carousel.carousel('prev');
 	});
 	$next.on('click', function() {
-		$carousel.carouselNext();
+		$carousel.carousel('next');
 	});
 
 	set_state();
@@ -429,7 +429,7 @@ $select.on('change', function() {
 		$prev = $('#carousel_7_prev'),
 		$next = $('#carousel_7_next'),
 		set_state = function() {
-			var state = $carousel.carouselGetMoveState();
+			var state = $carousel.carousel('getMoveState');
 			switch ( state ) {
 			case 'min':
 				$prev.prop('disabled', 'disabled');
@@ -449,10 +449,10 @@ $select.on('change', function() {
 
 	set_state();
 	$prev.on('click', function() {
-		$carousel.carouselPrev();
+		$carousel.carousel('prev');
 	});
 	$next.on('click', function() {
-		$carousel.carouselNext();
+		$carousel.carousel('next');
 	});
 
 	$carousel.bind({
@@ -475,20 +475,20 @@ $select.on('change', function() {
 		$next = $('#carousel_8_next');
 
 	$prev.on('click', function() {
-		$carousel.carouselPrev();
+		$carousel.carousel('prev');
 	});
 	$next.on('click', function() {
-		$carousel.carouselNext();
+		$carousel.carousel('next');
 	});
 	$select.on('change', function() {
 		var val = this.value,
 			group = val / 200;
 
 		$carousel.css('width', val);
-		$carousel.carouselReset({
+		$carousel.carousel('reset', {
 			group: group
 		});
-		$carousel.carouselRefresh();
+		$carousel.carousel('refresh');
 	});
 }());
 
