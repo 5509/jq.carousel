@@ -500,6 +500,14 @@ $select.on('change', function() {
 </div>
 
 <script src="scripts/lib/jquery-1.7.1.min.js"></script>
+<script src="scripts/lib/highlight.min.js"></script>
+<script>
+(function() {
+	$('pre').each(function() {
+		hljs.highlightBlock(this);
+	});
+}());
+</script>
 <script src="scripts/jq.carousel.js"></script>
 <script>
 
