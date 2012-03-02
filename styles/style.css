@@ -253,3 +253,21 @@ section ul li a:hover {
   text-align: center;
   font-size: 123%;
 }
+
+#carousel_9 {
+  margin: 0 auto;
+  width: 150px;
+  height: 600px;
+  background: #efefef;
+  overflow: hidden;
+}
+#carousel_9 .carousel_box {
+  border: solid #fff 5px;
+  width: 140px;
+  height: 140px;
+  color: #fff;
+  background: #252525;
+  line-height: 140px;
+  text-align: center;
+  font-size: 123%;
+}

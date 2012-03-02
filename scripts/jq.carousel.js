@@ -25,6 +25,7 @@
       var self = this;
 
       self.conf = $.extend({
+        vertical : false,   // boolean
         loop     : true,    // boolean
         easing   : 'swing', // or custom easing
         start    : 1,       // int
@@ -45,12 +46,17 @@
 
     _build: function() {
       var self = this,
+        conf = self.conf,
         start_pos = 0,
         box_total_width = 0;
 
       self.view_width = self.$elem[0].offsetWidth;
       self.total_width = 0;
-      self.current = self.conf.start;
+      self.current = conf.start;
+
+      self.float = conf.vertical ? 'none' : 'left';
+      self.position = conf.vertical ? 'top' : 'left';
+      self.prop = conf.vertical ? 'height' : 'width';
 
       self.$items = self.$elem.find('.carousel_box');
       self.$items_original = self.$items.clone();
@@ -75,7 +81,7 @@
         item.data_width = item.offsetWidth;
         item.origWidth = item.$elem.css('width');
         item.$elem.css({
-          float: 'left'
+          float: self.float
         });
 
         if ( self.items_len_hidden > self.view_width ) return;
@@ -84,14 +90,14 @@
       self.item_width = self.$items.eq(0)[0].data_width;
       self.items_len_hidden = self.items_len_hidden / self.item_width;
 
-      if ( self.conf.group !== 1 ) {
+      if ( conf.group !== 1 ) {
         self._groupSetup();
-        if ( self.conf.loop ) {
+        if ( conf.loop ) {
           self._cloneGroup();
         }
       } else {
         // clone nodes
-        if ( self.conf.loop ) {
+        if ( conf.loop ) {
           self._cloneItem();
         }
       }
@@ -102,20 +108,20 @@
       });
 
       // carousel width and height
-      if ( self.conf.loop ) {
+      if ( conf.loop ) {
         start_pos = self.items_len_hidden + self.current - 1;
         self.current_pos = -start_pos * self.item_width;
         self.default_pos = -self.items_len_hidden * self.item_width;
       } else {
-        start_pos = self.items_length < self.conf.start ? 1 : self.conf.start;
+        start_pos = self.items_length < conf.start ? 1 : conf.start;
         self.current_pos = 0;
         self.default_pos = 0;
       }
       self.$carousel_wrap.css({
         position: 'absolute',
-        left: self.current_pos + 'px',
         height: self.$items.eq(0)[0].offsetHeight
-      });
+      })
+      .css(self.position, self.current_pos);
 
       // max and min point
       self.max_point = self.default_pos - (self.item_width * self.items_length);
@@ -124,7 +130,7 @@
       // move size
       self.move_size = self.item_width;
 
-      if ( self.conf.group === 1 ) {
+      if ( conf.group === 1 ) {
         self.$items = self.$carousel_wrap.find('.carousel_box');
       } else {
         self.$items = self.$carousel_wrap.find('.carousel_group_inner');
@@ -169,7 +175,7 @@
         if ( !group[k] ) {
           group[k] = $('<div class="carousel_group_inner"></div>');
           group[k].css({
-            float: 'left',
+            float: self.float,
             width: group_width
           });
         }

@@ -474,6 +474,24 @@ $select.on('change', function() {
   $carousel.carousel('refresh');
 });</pre>
 
+		<h2>vertical carousel</h2>
+		<div class="carousel">
+			<div id="carousel_9" class="carousel_inner">
+				<div class="carousel_box">1</div>
+				<div class="carousel_box">2</div>
+				<div class="carousel_box">3</div>
+				<div class="carousel_box">4</div>
+				<div class="carousel_box">5</div>
+				<div class="carousel_box">6</div>
+				<div class="carousel_box">7</div>
+				<div class="carousel_box">8</div>
+			</div>
+			<p class="btns">
+				<input type="button" id="carousel_9_prev" value="prev">
+				<input type="button" id="carousel_9_next" value="next">
+			</p>
+		</div>
+
 	</section>
 
 	<section id="about">
@@ -734,6 +752,21 @@ $select.on('change', function() {
 			group: group
 		});
 		$carousel.carousel('refresh');
+	});
+}());
+
+(function() {
+	var $carousel = $('#carousel_9').carousel({
+		vertical: true
+	});
+
+	$('#carousel_9_prev').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel.carousel('prev');
+	});
+	$('#carousel_9_next').on('click', function(ev) {
+		ev.preventDefault();
+		$carousel.carousel('next');
 	});
 }());
 
