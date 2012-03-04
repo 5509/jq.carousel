@@ -6,279 +6,289 @@
 @import url(http://fonts.googleapis.com/css?family=Numans,Droid+Sans);
 
 @mixin preset {
-	margin-right: auto;
-	margin-left: auto;
-	width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
 }
 
 body {
-	background-image: url(../images/bg_glow.png), url(../images/dots.png);
-	background-repeat: repeat, repeat-x;
+  background-image: url(../images/bg_glow.png), url(../images/dots.png);
+  background-repeat: repeat, repeat-x;
 }
 
 .cont {
-	margin: 0 auto;
-	padding: 0 10px;
-	width: 800px;
+  margin: 0 auto;
+  padding: 0 10px;
+  width: 800px;
 }
 
 h1 {
-	font-family: 'Numans', sans-serif;
+  font-family: 'Numans', sans-serif;
 }
 h2,
 h3,
 p {
-	font-family: 'Droid Sans', sans-serif;
+  font-family: 'Droid Sans', sans-serif;
 }
 
 h1,
 .description,
 h3,
 pre {
-	@include preset;
+  @include preset;
 }
 
 h2 {
-	@include preset;
-	padding-top: 20px;
+  @include preset;
+  padding-top: 20px;
 }
 
 header {
-	margin: 0 auto;
-	padding-bottom: 40px;
-	width: 600px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  width: 600px;
 
-	.download {
-		float: right;
-		position: relative;
-		top: -70px;
-		font-size: 14px;
+  .download {
+    float: right;
+    position: relative;
+    top: -70px;
+    font-size: 14px;
 
-		a {
-			border: solid #000 1px;
-			-webkit-border-radius: 5px;
-			-moz-border-radius: 5px;
-			-ms-border-radius: 5px;
-			-o-border-radius: 5px;
-			border-radius: 5px;
-			padding: 7px 20px;
-			color: #fff;
-			text-decoration: none;
+    a {
+      border: solid #000 1px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border-radius: 5px;
+      padding: 7px 20px;
+      color: #fff;
+      text-decoration: none;
 
-			-webkit-box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
-			-moz-box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
-			-ms-box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
-			-o-box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
-			box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
+      -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
+      -moz-box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
+      -ms-box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
+      -o-box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
+      box-shadow: 0 0 2px rgba(0,0,0,0.4), 1px 1px 2px rgba(255,255,255,0.1) inset, -1px -1px 2px rgba(0,0,0,0.2);
 
-			background: rgb(69,72,77); /* Old browsers */
-			background: -moz-linear-gradient(top,  rgba(69,72,77,0.9) 0%, rgba(0,0,0,0.9) 100%);
-			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,0.9)), color-stop(100%,rgba(0,0,0,0.9)));
-			background: -webkit-linear-gradient(top,  rgba(69,72,77,0.9) 0%,rgba(0,0,0,0.9) 100%);
-			background: -o-linear-gradient(top,  rgba(69,72,77,0.9) 0%,rgba(0,0,0,0.9) 100%);
-			background: -ms-linear-gradient(top,  rgba(69,72,77,0.9) 0%,rgba(0,0,0,0.9) 100%);
-			background: linear-gradient(top,  rgba(69,72,77,0.9) 0%,rgba(0,0,0,0.9) 100%);
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-		}
-	}
+      background: rgb(69,72,77); /* Old browsers */
+      background: -moz-linear-gradient(top,  rgba(69,72,77,0.9) 0%, rgba(0,0,0,0.9) 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,0.9)), color-stop(100%,rgba(0,0,0,0.9)));
+      background: -webkit-linear-gradient(top,  rgba(69,72,77,0.9) 0%,rgba(0,0,0,0.9) 100%);
+      background: -o-linear-gradient(top,  rgba(69,72,77,0.9) 0%,rgba(0,0,0,0.9) 100%);
+      background: -ms-linear-gradient(top,  rgba(69,72,77,0.9) 0%,rgba(0,0,0,0.9) 100%);
+      background: linear-gradient(top,  rgba(69,72,77,0.9) 0%,rgba(0,0,0,0.9) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+    }
+  }
 
-	nav {
-		width: 100%;
-		height: 40px;
-		position: absolute;
-		top: 100px;
-		left: 0;
-		background: rgba(37,37,37,0.9);
-		line-height: 40px;
+  nav {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    background: rgba(37,37,37,0.9);
+    line-height: 40px;
+        z-index: 100;
+        -webkit-transition: background-color ease 0.2s;
+        -moz-transition: background-color ease 0.2s;
+        -ms-transition: background-color ease 0.2s;
+        -o-transition: background-color ease 0.2s;
+        transition: background-color ease 0.2s;
 
-		ul {
-			margin: 0 auto;
-			padding-left: 0;
-			width: 600px;
+        &.fixscroll_fixed {
+          background: rgba(37,37,37,0.7);
+        }
 
-			li {
-				display: inline-block;
-				
-				a {
-					margin: 0 16px 0 0;
-					color: #fff;
-					font-size: 14px;
-					text-decoration: none;
+    ul {
+      margin: 0 auto;
+      padding-left: 0;
+      width: 600px;
 
-					&:hover {
-						text-decoration: underline;
-					}
-				}
-			}
-		}
-	}
+      li {
+        display: inline-block;
+        
+        a {
+          margin: 0 16px 0 0;
+          color: #fff;
+          font-size: 14px;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
 }
 
 section {
-	border-bottom: dashed rgba(0,0,0,0.3) 1px;
-	padding-bottom: 40px;
+  border-bottom: dashed rgba(0,0,0,0.3) 1px;
+  padding-bottom: 40px;
 
-	&:last-child {
-		border: none;
-	}
+  &:last-child {
+    border: none;
+  }
 
-	h3 {
-		border-bottom: dotted rgba(0,0,0,0.7) 1px;
-		padding: 10px 0;
-	}
+  h3 {
+    border-bottom: dotted rgba(0,0,0,0.7) 1px;
+    padding: 10px 0;
+  }
 
-	p {
-		margin: 0 auto;
-		width: 600px;
-		font-size: 16px;
-		line-height: 1.6;
+  p {
+    margin: 0 auto;
+    width: 600px;
+    font-size: 16px;
+    line-height: 1.6;
 
-		&+p {
-			padding-top: 10px;
-		}
-	}
+    &+p {
+      padding-top: 10px;
+    }
+  }
 
-	table {
-		margin: 30px auto 0;
-		border: solid #000 1px;
-		border-bottom: none;
-		border-left: none;
-		border-collaplse: seperate;
-		width: 700px;
-		font-size: 14px;
-		line-height: 1.6;
+  table {
+    margin: 30px auto 0;
+    border: solid #000 1px;
+    border-bottom: none;
+    border-left: none;
+    border-collaplse: seperate;
+    width: 700px;
+    font-size: 14px;
+    line-height: 1.6;
 
-		thead {
-			background: rgba(37,37,37,0.8);
-			color: #efefef;
-		}
-		tbody {
-		}
+    thead {
+      background: rgba(37,37,37,0.8);
+      color: #efefef;
+    }
+    tbody {
+    }
 
-		th, td {
-			border: solid #000 1px;
-			border-top: none;
-			border-right: none;
-			padding: 10px 15px;
-			text-align: left;
-		}
-	}
+    th, td {
+      border: solid #000 1px;
+      border-top: none;
+      border-right: none;
+      padding: 10px 15px;
+      text-align: left;
+    }
+  }
 
-	ul {
-		margin: 0 auto;
-		padding: 10px 20px;
-		width: 600px;
-		font-size: 16px;
+  ul {
+    margin: 0 auto;
+    padding: 10px 20px;
+    width: 600px;
+    font-size: 16px;
 
-		li {
-			line-height: 1.6;
+    li {
+      line-height: 1.6;
 
-			a {
-				color: #000;
-				
-				&:hover {
-					text-decoration: none;
-				}
-			}
-		}
-	}
+      a {
+        color: #000;
+        
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
 
 .carousel {
 
-	.carousel_indicator {
-		padding-top: 5px;
-		text-align: center;
+  .carousel_indicator {
+    padding-top: 5px;
+    text-align: center;
 
-		span {
-			margin: 0 2px;
-			border-radius: 5px;
-			display: inline-block;
-			width: 10px;
-			height: 10px;
-			background: #888;
-			text-indent: -1000em;
+    span {
+      margin: 0 2px;
+      border-radius: 5px;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #888;
+      text-indent: -1000em;
 
-			&.active {
-				background: #000;
-			}
-		}
-	}
+      &.active {
+        background: #000;
+      }
+    }
+  }
 
-	.btns {
-		padding-top: 5px;
-		text-align: center;
-	}
+  .btns {
+    padding-top: 5px;
+    text-align: center;
+  }
 }
 
 #carousel_1,
 #carousel_4 {
-	margin: 0 auto;
-	width: 600px;
-	height: 150px;
-	background: #efefef;
-	overflow: hidden;
+  margin: 0 auto;
+  width: 600px;
+  height: 150px;
+  background: #efefef;
+  overflow: hidden;
 
-	.carousel_box {
-		float: left;
-		border: solid #fff 5px;
-		width: 140px;
-		height: 140px;
-		color: #fff;
-		background: #252525;
-		line-height: 140px;
-		text-align: center;
-		font-size: 123%;
-	}
+  .carousel_box {
+    float: left;
+    border: solid #fff 5px;
+    width: 140px;
+    height: 140px;
+    color: #fff;
+    background: #252525;
+    line-height: 140px;
+    text-align: center;
+    font-size: 123%;
+  }
 }
 
 #carousel_2,
 #carousel_5,
 #carousel_6 {
-	margin: 0 auto;
-	width: 600px;
-	height: 140px;
-	overflow: hidden;
+  margin: 0 auto;
+  width: 600px;
+  height: 140px;
+  overflow: hidden;
 
-	.carousel_box {
-		width: 600px;
-		height: 140px;
-		color: #fff;
-		background: #252525;
-		line-height: 140px;
-		text-align: center;
-		font-size: 123%;
+  .carousel_box {
+    width: 600px;
+    height: 140px;
+    color: #fff;
+    background: #252525;
+    line-height: 140px;
+    text-align: center;
+    font-size: 123%;
 
-		&.second {
-			background: #666;
-		}
-		&.third {
-			background: #999;
-		}
-	}
+    &.second {
+      background: #666;
+    }
+    &.third {
+      background: #999;
+    }
+  }
 }
 
 #carousel_3,
 #carousel_7,
 #carousel_8 {
-	margin: 0 auto;
-	width: 600px;
-	height: 150px;
-	background: #efefef;
-	overflow: hidden;
+  margin: 0 auto;
+  width: 600px;
+  height: 150px;
+  background: #efefef;
+  overflow: hidden;
 
-	.carousel_box {
-		border: solid #fff 5px;
-		width: 190px;
-		height: 140px;
-		color: #fff;
-		background: #252525;
-		line-height: 140px;
-		text-align: center;
-		font-size: 123%;
-	}
+  .carousel_box {
+    border: solid #fff 5px;
+    width: 190px;
+    height: 140px;
+    color: #fff;
+    background: #252525;
+    line-height: 140px;
+    text-align: center;
+    font-size: 123%;
+  }
 }
 
 .thx {
-	text-align: right;
+  text-align: right;
 }
