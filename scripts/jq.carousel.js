@@ -8,7 +8,7 @@
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-03-04 22:55
+ * 2012-03-04 22:51
  */
 ;(function($, undefined) {
 
