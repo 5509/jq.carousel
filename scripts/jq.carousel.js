@@ -2,13 +2,13 @@
  * jq.carousel
  * Simple and customizable carousel
  *
- * @version      2.4
+ * @version      2.41
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         https://github.com/5509/jq.carousel
  *
- * 2012-03-04 22:51
+ * 2012-03-12 13:55
  */
 ;(function($, undefined) {
 
@@ -59,7 +59,7 @@
       self.total_size = 0;
       self.current = conf.start;
 
-      self.$items = self.$elem.find('.carousel_box');
+      self.$items = self.$elem.children();
       self.$items_original = self.$items.clone();
       self.items_length = self.$items.length;
       self.items_len_hidden = 0;
@@ -119,7 +119,7 @@
         self.default_pos = 0;
       }
       self.$carousel_wrap.css({
-        position: 'absolute'
+        position: 'relative'
       })
       .css(self.position, self.current_pos);
       
@@ -137,7 +137,7 @@
       self.move_size = self.item_size;
 
       if ( conf.group === 1 ) {
-        self.$items = self.$carousel_wrap.find('.carousel_box');
+        self.$items = self.$carousel_wrap.children();
       } else {
         self.$items = self.$carousel_wrap.find('.carousel_group_inner');
       }
@@ -245,7 +245,7 @@
         $items = undefined;
 
       if ( self.conf.group === 1 ) {
-        $items = self.$elem.find('.carousel_box');
+        $items = self.$carousel_wrap.children();
       } else {
         $items = self.$elem.find('.carousel_group_inner');
       }
