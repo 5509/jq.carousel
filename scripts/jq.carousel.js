@@ -74,6 +74,9 @@
       box_total_size = self.items_length * self.$items[0][self.offset_prop];
 
       // setup
+      self.$items.css({
+        float: self.float
+      });
       each(self.$items, function(i) {
         var item = this;
 
@@ -81,9 +84,6 @@
         item.$elem = $(this);
         item.data_size = item[self.offset_prop];
         item.orig_size = item.$elem.css(self.prop);
-        item.$elem.css({
-          float: self.float
-        });
 
         if ( self.items_len_hidden > self.view_size ) return;
         self.items_len_hidden = self.items_len_hidden + item.data_size;
