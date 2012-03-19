@@ -502,6 +502,23 @@ $select.on('change', function() {
   group: 2
 });</pre>
 
+		<h2>using with timer</h2>
+		<div class="carousel">
+			<div id="carousel_10" class="carousel_inner">
+				<div class="carousel_box first">1</div>
+				<div class="carousel_box second">2</div>
+				<div class="carousel_box third">3</div>
+			</div>
+		</div>
+		<h3>source code</h3>
+		<pre>var $carousel = $('#carousel').carousel({
+  indicator: true,
+  duration: 0.3
+});
+
+setInterval(function() {
+  $carousel.carousel('next');
+}, 3000);</pre>
 	</section>
 
 	<section id="about">
@@ -782,6 +799,17 @@ $select.on('change', function() {
 		ev.preventDefault();
 		$carousel.carousel('next');
 	});
+}());
+
+(function() {
+	var $carousel = $('#carousel_10').carousel({
+		indicator: true,
+		duration: 0.3
+	});
+
+	setInterval(function() {
+		$carousel.carousel('next');
+	}, 3000);
 }());
 
 </script>

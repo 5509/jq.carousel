@@ -213,7 +213,8 @@ section ul li a:hover {
 
 #carousel_2,
 #carousel_5,
-#carousel_6 {
+#carousel_6,
+#carousel_10 {
   margin: 0 auto;
   width: 600px;
   height: 140px;
@@ -221,7 +222,8 @@ section ul li a:hover {
 }
 #carousel_2 .carousel_box,
 #carousel_5 .carousel_box,
-#carousel_6 .carousel_box {
+#carousel_6 .carousel_box,
+#carousel_10 .carousel_box {
   width: 600px;
   height: 140px;
   color: #fff;
@@ -232,12 +234,14 @@ section ul li a:hover {
 }
 #carousel_2 .carousel_box.second,
 #carousel_5 .carousel_box.second,
-#carousel_6 .carousel_box.second {
+#carousel_6 .carousel_box.second,
+#carousel_10 .carousel_box.second {
   background: #666;
 }
 #carousel_2 .carousel_box.third,
 #carousel_5 .carousel_box.third,
-#carousel_6 .carousel_box.third {
+#carousel_6 .carousel_box.third,
+#carousel_10 .carousel_box.third {
   background: #999;
 }
 
