@@ -168,6 +168,12 @@ section ul li a {
 section ul li a:hover {
   text-decoration: none;
 }
+section .sb {
+  margin: 0 auto;
+  padding-top: 30px;
+  display: block !important;
+  width: 600px;
+}
 
 .carousel .carousel_indicator {
   padding-top: 5px;
