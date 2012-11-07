@@ -1,7 +1,3 @@
-/*! jq.carousel / jQuery plugin - v2.4.2 - 2012-11-07 20:28:20
-* http://5509.github.com/jq.carousel/
-* Copyright (c) 2012 Kazunori Tokuda; Licensed MIT */
-
 ;(function($, undefined) {
  
   var Carousel = function(parent, conf) {
