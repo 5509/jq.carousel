@@ -103,14 +103,14 @@
         self.default_pos = -self.items_len_hidden * self.item_size;
       } else {
         start_pos = self.items_length < conf.start ? 1 : conf.start;
-        self.current_pos = 0;
+        self.current_pos = -(start_pos-1) * self.item_size;
         self.default_pos = 0;
       }
       self.$carousel_wrap.css({
         position: 'relative'
       })
       .css(self.position, self.current_pos);
-      
+
       if ( self.vertical ) {
         self.$carousel_wrap.css('width', self.$items.eq(0)[0].offsetWidth);
       } else {
